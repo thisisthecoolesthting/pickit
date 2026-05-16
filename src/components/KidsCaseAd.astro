@@ -1,35 +1,37 @@
 ---
+interface Case {
+  id: string;
+  name: string;
+  lean: string;
+  imgUrl: string;
+}
 interface Props {
-  imageUrl?: string;                                  // optional now — falls back to emoji
-  emoji?: string;                                     // big emoji for the case theme
-  caseColor?: 'pink' | 'cyan' | 'lime' | 'sun' | 'cream';
+  cases: Case[];                              // 4-5 case thumbnails for this ad
   headline: string;
   promoCode?: string;
   ctaText?: string;
   ctaHref: string;
   tilt?: '-1' | '0' | '1' | '2';
+  bg?: 'lime' | 'pink' | 'cyan' | 'sun';
 }
 const {
-  imageUrl,
-  emoji = '📱',
-  caseColor = 'pink',
+  cases,
   headline,
   promoCode = 'PICKIT15',
-  ctaText = 'See the cases →',
+  ctaText = 'Shop the collection →',
   ctaHref,
   tilt = '0',
+  bg = 'lime',
 } = Astro.props;
 const tiltClass = tilt === '0' ? '' : tilt === '-1' ? '-rotate-1' : tilt === '1' ? 'rotate-1' : 'rotate-2';
-const caseFill: Record<string, string> = {
-  pink: '#FF4D8F',
-  cyan: '#4DD2FF',
-  lime: '#B6FF6E',
-  sun:  '#FFD93D',
-  cream:'#FFFBE6',
+const bgClass: Record<string, string> = {
+  lime: 'bg-lime',
+  pink: 'bg-pink',
+  cyan: 'bg-cyan',
+  sun:  'bg-sun',
 };
-const fill = caseFill[caseColor] ?? caseFill.pink;
 ---
-<aside class={`relative rounded-3xl border-4 border-ink bg-lime p-5 shadow-chunky ${tiltClass}`}>
+<aside class={`relative rounded-3xl border-4 border-ink ${bgClass[bg]} p-4 md:p-5 shadow-chunky ${tiltClass}`}>
   <!-- "AD" badge -->
   <div class="absolute -top-3 -left-3 rounded-full bg-sun border-3 border-ink px-3 py-1 text-xs font-bold text-ink shadow-chunky-sm">
     AD
@@ -38,42 +40,41 @@ const fill = caseFill[caseColor] ?? caseFill.pink;
   <!-- POW! comic burst -->
   <div class="absolute -top-4 -right-2 text-3xl rotate-12 select-none animate-wobble" aria-hidden="true">💥</div>
 
-  <div class="flex gap-4 items-center">
-    <!-- Inline SVG "phone case" sticker — no image fetch, never 404s -->
-    <div class="relative w-28 h-28 md:w-32 md:h-32 flex-shrink-0">
-      <svg viewBox="0 0 100 120" class="w-full h-full" aria-hidden="true">
-        <!-- case body -->
-        <rect x="8" y="6" width="84" height="108" rx="16" ry="16"
-              fill={fill} stroke="#1A1A1A" stroke-width="5"/>
-        <!-- camera bump -->
-        <rect x="20" y="14" width="22" height="14" rx="4" ry="4"
-              fill="#1A1A1A" opacity="0.85"/>
-        <circle cx="28" cy="21" r="3" fill="#FFFBE6"/>
-        <circle cx="38" cy="21" r="2" fill="#FFFBE6" opacity="0.7"/>
-        <!-- highlight stripe -->
-        <rect x="14" y="40" width="6" height="60" rx="3" fill="#FFFBE6" opacity="0.45"/>
-      </svg>
-      <!-- emoji centered on the case -->
-      <div class="absolute inset-0 flex items-center justify-center text-5xl md:text-6xl sticker-emoji animate-bounce-soft select-none" aria-hidden="true">
-        {emoji}
-      </div>
-    </div>
+  <!-- Headline -->
+  <h3 class="font-bold text-lg md:text-xl leading-tight text-ink mb-3 pr-4">{headline}</h3>
 
-    <div class="min-w-0 flex-1">
-      <h3 class="font-bold text-lg md:text-xl leading-tight text-ink mb-2">{headline}</h3>
-      {promoCode && (
-        <div class="inline-block mb-3 rounded-full bg-pink border-2 border-ink px-3 py-1 text-xs font-bold text-cream shadow-chunky-sm">
-          Code: {promoCode}
+  <!-- 5-thumbnail row of real case mockups -->
+  <a href={ctaHref} rel="sponsored nofollow noopener" target="_blank"
+     class="block mb-3 rounded-2xl border-3 border-ink bg-cream p-2 hover:bg-white transition-colors">
+    <div class="grid grid-cols-5 gap-1 md:gap-2">
+      {cases.map((c, i) => (
+        <div class={`relative aspect-[3/4] overflow-hidden rounded-lg border-2 border-ink ${i % 2 === 0 ? '-rotate-2' : 'rotate-2'}`}>
+          <img
+            src={c.imgUrl}
+            alt={c.name}
+            loading="lazy"
+            decoding="async"
+            class="w-full h-full object-cover"
+          />
         </div>
-      )}
-      <a
-        href={ctaHref}
-        rel="sponsored nofollow noopener"
-        target="_blank"
-        class="block w-full rounded-full bg-cyan hover:bg-cyan-deep border-3 border-ink px-4 py-2 text-center text-sm font-bold text-ink shadow-chunky-sm transition-transform active:translate-x-1 active:translate-y-1"
-      >
-        {ctaText}
-      </a>
+      ))}
     </div>
+  </a>
+
+  <!-- Promo code + CTA row -->
+  <div class="flex items-center gap-2 flex-wrap">
+    {promoCode && (
+      <div class="rounded-full bg-pink border-2 border-ink px-3 py-1 text-xs font-bold text-cream shadow-chunky-sm">
+        Code: {promoCode}
+      </div>
+    )}
+    <a
+      href={ctaHref}
+      rel="sponsored nofollow noopener"
+      target="_blank"
+      class="flex-1 min-w-0 rounded-full bg-cyan hover:bg-cyan-deep border-3 border-ink px-4 py-2 text-center text-sm font-bold text-ink shadow-chunky-sm transition-transform active:translate-x-1 active:translate-y-1"
+    >
+      {ctaText}
+    </a>
   </div>
 </aside>
