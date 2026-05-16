@@ -6,7 +6,7 @@ interface Case {
   imgUrl: string;
 }
 interface Props {
-  cases: Case[];                              // 4-5 case thumbnails for this ad
+  cases: Case[];                              // 4-5 transparent case PNG/WebP
   headline: string;
   promoCode?: string;
   ctaText?: string;
@@ -33,30 +33,29 @@ const bgClass: Record<string, string> = {
 ---
 <aside class={`relative rounded-3xl border-4 border-ink ${bgClass[bg]} p-4 md:p-5 shadow-chunky ${tiltClass}`}>
   <!-- "AD" badge -->
-  <div class="absolute -top-3 -left-3 rounded-full bg-sun border-3 border-ink px-3 py-1 text-xs font-bold text-ink shadow-chunky-sm">
+  <div class="absolute -top-3 -left-3 z-10 rounded-full bg-sun border-3 border-ink px-3 py-1 text-xs font-bold text-ink shadow-chunky-sm">
     AD
   </div>
 
   <!-- POW! comic burst -->
-  <div class="absolute -top-4 -right-2 text-3xl rotate-12 select-none animate-wobble" aria-hidden="true">💥</div>
+  <div class="absolute -top-4 -right-2 z-10 text-3xl rotate-12 select-none animate-wobble" aria-hidden="true">💥</div>
 
   <!-- Headline -->
   <h3 class="font-bold text-lg md:text-xl leading-tight text-ink mb-3 pr-4">{headline}</h3>
 
-  <!-- 5-thumbnail row of real case mockups -->
+  <!-- 5 transparent cases, big, no white frame. Wrap the row in an <a> so the whole strip is tappable. -->
   <a href={ctaHref} rel="sponsored nofollow noopener" target="_blank"
-     class="block mb-3 rounded-2xl border-3 border-ink bg-cream p-2 hover:bg-white transition-colors">
-    <div class="grid grid-cols-5 gap-1 md:gap-2">
+     class="block mb-3 hover:scale-[1.02] transition-transform">
+    <div class="flex justify-between items-end gap-1 md:gap-2">
       {cases.map((c, i) => (
-        <div class={`relative aspect-[3/4] overflow-hidden rounded-lg border-2 border-ink ${i % 2 === 0 ? '-rotate-2' : 'rotate-2'}`}>
-          <img
-            src={c.imgUrl}
-            alt={c.name}
-            loading="lazy"
-            decoding="async"
-            class="w-full h-full object-cover"
-          />
-        </div>
+        <img
+          src={c.imgUrl}
+          alt={c.name}
+          loading="lazy"
+          decoding="async"
+          class={`flex-1 min-w-0 h-auto drop-shadow-[3px_3px_0_rgba(26,26,26,0.85)] ${i === 0 ? '-rotate-6' : i === 1 ? 'rotate-3' : i === 2 ? '-rotate-3' : i === 3 ? 'rotate-6' : '-rotate-2'}`}
+          style="max-height:170px;object-fit:contain;"
+        />
       ))}
     </div>
   </a>
@@ -64,7 +63,7 @@ const bgClass: Record<string, string> = {
   <!-- Promo code + CTA row -->
   <div class="flex items-center gap-2 flex-wrap">
     {promoCode && (
-      <div class="rounded-full bg-pink border-2 border-ink px-3 py-1 text-xs font-bold text-cream shadow-chunky-sm">
+      <div class="rounded-full bg-ink border-2 border-ink px-3 py-1 text-xs font-bold text-cream shadow-chunky-sm">
         Code: {promoCode}
       </div>
     )}
@@ -72,7 +71,7 @@ const bgClass: Record<string, string> = {
       href={ctaHref}
       rel="sponsored nofollow noopener"
       target="_blank"
-      class="flex-1 min-w-0 rounded-full bg-cyan hover:bg-cyan-deep border-3 border-ink px-4 py-2 text-center text-sm font-bold text-ink shadow-chunky-sm transition-transform active:translate-x-1 active:translate-y-1"
+      class="flex-1 min-w-0 rounded-full bg-cream hover:bg-white border-3 border-ink px-4 py-2 text-center text-sm font-bold text-ink shadow-chunky-sm transition-transform active:translate-x-1 active:translate-y-1"
     >
       {ctaText}
     </a>

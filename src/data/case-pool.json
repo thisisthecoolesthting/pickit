@@ -1,22 +1,122 @@
 [
-  { "id":"6a05ffc70b50e9737c06769f", "name":"Rainbow Unicorn",         "lean":"girl", "imgUrl":"https://images.printify.com/mockup/6a05ffc70b50e9737c06769f/96135/81354/iphone-rainbow-unicorn-kids-fun-phone-case-gift-soft-finish-everyday-case-ipho.jpg?camera_label=front" },
-  { "id":"6a0660376c82d6fc6e0676b4", "name":"Pastel Unicorn",          "lean":"girl", "imgUrl":"https://images.printify.com/mockup/6a0660376c82d6fc6e0676b4/96135/81354/iphone-pastel-unicorn-kids-fun-galaxy-phone-case-gift-slim-snap-case-iphone-ca.jpg?camera_label=front" },
-  { "id":"6a05f70f50e44e2c990159c6", "name":"Cotton Candy Unicorn",    "lean":"girl", "imgUrl":"https://images.printify.com/mockup/6a05f70f50e44e2c990159c6/96135/81354/iphone-cotton-candy-unicorn-kids-fun-phone-case-gift-slim-snap-case-iphone-cas.jpg?camera_label=front" },
-  { "id":"6a066047463a9e767f037895", "name":"Fairy Mushrooms",         "lean":"girl", "imgUrl":"https://images.printify.com/mockup/6a066047463a9e767f037895/96135/81354/iphone-fairy-circle-mushrooms-kids-fun-phone-case-gift-slim-snap-case-iphone-c.jpg?camera_label=front" },
-  { "id":"6a05f71fd9cafe1c2005d76e", "name":"Kawaii Axolotl",          "lean":"girl", "imgUrl":"https://images.printify.com/mockup/6a05f71fd9cafe1c2005d76e/96135/81354/iphone-kawaii-axolotl-pink-kids-fun-phone-case-gift-slim-snap-case-iphone-case.jpg?camera_label=front" },
-  { "id":"6a0667409c910ed47d087450", "name":"Enchanted Castle",        "lean":"girl", "imgUrl":"https://images.printify.com/mockup/6a0667409c910ed47d087450/96135/81354/iphone-enchanted-castle-glow-kids-fun-phone-case-gift-slim-snap-case-iphone-ca.jpg?camera_label=front" },
-  { "id":"6a05f6b8cf821df1450a15d2", "name":"Moonlight Unicorn",       "lean":"girl", "imgUrl":"https://images.printify.com/mockup/6a05f6b8cf821df1450a15d2/96135/81354/iphone-moonlight-unicorn-kids-fun-phone-case-gift-clean-minimal-snap-case-ipho.jpg?camera_label=front" },
-  { "id":"6a066736530bbcc92407bab3", "name":"Glitter Horn",            "lean":"girl", "imgUrl":"https://images.printify.com/mockup/6a066736530bbcc92407bab3/96135/81354/iphone-glitter-horn-unicorn-kids-fun-phone-case-gift-slim-snap-case-iphone-cas.jpg?camera_label=front" },
-  { "id":"6a06675c50e44e2c99018f53", "name":"Crystal Mane",            "lean":"girl", "imgUrl":"https://images.printify.com/mockup/6a06675c50e44e2c99018f53/96135/81354/iphone-crystal-mane-unicorn-kids-fun-phone-case-gift-slim-snap-case-iphone-cas.jpg?camera_label=front" },
-  { "id":"6a066040e556c763050fb4a7", "name":"Rainbow Elephant",        "lean":"girl", "imgUrl":"https://images.printify.com/mockup/6a066040e556c763050fb4a7/96135/81354/iphone-rainbow-elephant-splash-kids-fun-phone-case-gift-slim-snap-case-iphone.jpg?camera_label=front" },
-  { "id":"6a05f675777f3172de0e7093", "name":"Superhero Flying",        "lean":"boy",  "imgUrl":"https://images.printify.com/mockup/6a05f675777f3172de0e7093/96135/81354/iphone-kid-superhero-flying-kids-fun-phone-case-gift-slim-snap-case-iphone-cas.jpg?camera_label=front" },
-  { "id":"6a065b2850e44e2c99018867", "name":"Dragon Hatching",         "lean":"boy",  "imgUrl":"https://images.printify.com/mockup/6a065b2850e44e2c99018867/96135/81354/iphone-dragon-hatching-egg-kids-fun-phone-case-gift-slim-snap-case-iphone-case.jpg?camera_label=front" },
-  { "id":"6a06602e463a9e767f037885", "name":"Monster Truck",           "lean":"boy",  "imgUrl":"https://images.printify.com/mockup/6a06602e463a9e767f037885/96135/81354/iphone-monster-truck-muddy-kids-fun-phone-case-gift-slim-snap-case-iphone-case.jpg?camera_label=front" },
-  { "id":"6a06604f0b50e9737c06a51b", "name":"Race Car",                "lean":"boy",  "imgUrl":"https://images.printify.com/mockup/6a06604f0b50e9737c06a51b/96135/81354/iphone-race-car-blur-speed-kids-fun-phone-case-gift-slim-snap-case-iphone-case.jpg?camera_label=front" },
-  { "id":"6a05f6aa530bbcc924078500", "name":"Rocket Ship",             "lean":"boy",  "imgUrl":"https://images.printify.com/mockup/6a05f6aa530bbcc924078500/96135/81354/iphone-rocket-ship-launch-kids-fun-phone-case-gift-artistic-everyday-case-ipho.jpg?camera_label=front" },
-  { "id":"6a05f6d450e44e2c990159b3", "name":"Baby Dragon",             "lean":"boy",  "imgUrl":"https://images.printify.com/mockup/6a05f6d450e44e2c990159b3/96135/81354/iphone-baby-dragon-perch-kids-fun-phone-case-gift-clean-minimal-snap-case-ipho.jpg?camera_label=front" },
-  { "id":"6a0667539f2a234a0f0364aa", "name":"Fire Truck",              "lean":"boy",  "imgUrl":"https://images.printify.com/mockup/6a0667539f2a234a0f0364aa/96135/81354/iphone-fire-truck-hero-kids-fun-phone-case-gift-soft-finish-everyday-case-ipho.jpg?camera_label=front" },
-  { "id":"6a05f6e2d9cafe1c2005d755", "name":"Superhero Shield",        "lean":"boy",  "imgUrl":"https://images.printify.com/mockup/6a05f6e2d9cafe1c2005d755/96135/81354/iphone-superhero-shield-stars-kids-fun-phone-case-gift-slim-snap-case-iphone-c.jpg?camera_label=front" },
-  { "id":"6a05f75450e44e2c990159d1", "name":"Dump Truck",              "lean":"boy",  "imgUrl":"https://images.printify.com/mockup/6a05f75450e44e2c990159d1/96135/81354/iphone-dump-truck-construction-kids-fun-phone-case-gift-slim-snap-case-iphone.jpg?camera_label=front" },
-  { "id":"6a067c509c910ed47d087f19", "name":"Superhero Logo",          "lean":"boy",  "imgUrl":"https://images.printify.com/mockup/6a067c509c910ed47d087f19/96135/81354/iphone-superhero-logo-mosaic-kids-fun-phone-case-gift-slim-snap-case-iphone-ca.jpg?camera_label=front" }
+  {
+    "id": "6a05ffc70b50e9737c06769f",
+    "name": "Rainbow Unicorn",
+    "lean": "girl",
+    "imgUrl": "/cases/6a05ffc70b50e9737c06769f.webp"
+  },
+  {
+    "id": "6a0660376c82d6fc6e0676b4",
+    "name": "Pastel Unicorn",
+    "lean": "girl",
+    "imgUrl": "/cases/6a0660376c82d6fc6e0676b4.webp"
+  },
+  {
+    "id": "6a05f70f50e44e2c990159c6",
+    "name": "Cotton Candy Unicorn",
+    "lean": "girl",
+    "imgUrl": "/cases/6a05f70f50e44e2c990159c6.webp"
+  },
+  {
+    "id": "6a066047463a9e767f037895",
+    "name": "Fairy Mushrooms",
+    "lean": "girl",
+    "imgUrl": "/cases/6a066047463a9e767f037895.webp"
+  },
+  {
+    "id": "6a05f71fd9cafe1c2005d76e",
+    "name": "Kawaii Axolotl",
+    "lean": "girl",
+    "imgUrl": "/cases/6a05f71fd9cafe1c2005d76e.webp"
+  },
+  {
+    "id": "6a0667409c910ed47d087450",
+    "name": "Enchanted Castle",
+    "lean": "girl",
+    "imgUrl": "/cases/6a0667409c910ed47d087450.webp"
+  },
+  {
+    "id": "6a05f6b8cf821df1450a15d2",
+    "name": "Moonlight Unicorn",
+    "lean": "girl",
+    "imgUrl": "/cases/6a05f6b8cf821df1450a15d2.webp"
+  },
+  {
+    "id": "6a066736530bbcc92407bab3",
+    "name": "Glitter Horn",
+    "lean": "girl",
+    "imgUrl": "/cases/6a066736530bbcc92407bab3.webp"
+  },
+  {
+    "id": "6a06675c50e44e2c99018f53",
+    "name": "Crystal Mane",
+    "lean": "girl",
+    "imgUrl": "/cases/6a06675c50e44e2c99018f53.webp"
+  },
+  {
+    "id": "6a066040e556c763050fb4a7",
+    "name": "Rainbow Elephant",
+    "lean": "girl",
+    "imgUrl": "/cases/6a066040e556c763050fb4a7.webp"
+  },
+  {
+    "id": "6a05f675777f3172de0e7093",
+    "name": "Superhero Flying",
+    "lean": "boy",
+    "imgUrl": "/cases/6a05f675777f3172de0e7093.webp"
+  },
+  {
+    "id": "6a065b2850e44e2c99018867",
+    "name": "Dragon Hatching",
+    "lean": "boy",
+    "imgUrl": "/cases/6a065b2850e44e2c99018867.webp"
+  },
+  {
+    "id": "6a06602e463a9e767f037885",
+    "name": "Monster Truck",
+    "lean": "boy",
+    "imgUrl": "/cases/6a06602e463a9e767f037885.webp"
+  },
+  {
+    "id": "6a06604f0b50e9737c06a51b",
+    "name": "Race Car",
+    "lean": "boy",
+    "imgUrl": "/cases/6a06604f0b50e9737c06a51b.webp"
+  },
+  {
+    "id": "6a05f6aa530bbcc924078500",
+    "name": "Rocket Ship",
+    "lean": "boy",
+    "imgUrl": "/cases/6a05f6aa530bbcc924078500.webp"
+  },
+  {
+    "id": "6a05f6d450e44e2c990159b3",
+    "name": "Baby Dragon",
+    "lean": "boy",
+    "imgUrl": "/cases/6a05f6d450e44e2c990159b3.webp"
+  },
+  {
+    "id": "6a0667539f2a234a0f0364aa",
+    "name": "Fire Truck",
+    "lean": "boy",
+    "imgUrl": "/cases/6a0667539f2a234a0f0364aa.webp"
+  },
+  {
+    "id": "6a05f6e2d9cafe1c2005d755",
+    "name": "Superhero Shield",
+    "lean": "boy",
+    "imgUrl": "/cases/6a05f6e2d9cafe1c2005d755.webp"
+  },
+  {
+    "id": "6a05f75450e44e2c990159d1",
+    "name": "Dump Truck",
+    "lean": "boy",
+    "imgUrl": "/cases/6a05f75450e44e2c990159d1.webp"
+  },
+  {
+    "id": "6a067c509c910ed47d087f19",
+    "name": "Superhero Logo",
+    "lean": "boy",
+    "imgUrl": "/cases/6a067c509c910ed47d087f19.webp"
+  }
 ]
