@@ -1,6 +1,8 @@
 ---
 interface Props {
-  imageUrl: string;
+  imageUrl?: string;                                  // optional now — falls back to emoji
+  emoji?: string;                                     // big emoji for the case theme
+  caseColor?: 'pink' | 'cyan' | 'lime' | 'sun' | 'cream';
   headline: string;
   promoCode?: string;
   ctaText?: string;
@@ -9,6 +11,8 @@ interface Props {
 }
 const {
   imageUrl,
+  emoji = '📱',
+  caseColor = 'pink',
   headline,
   promoCode = 'PICKIT15',
   ctaText = 'See the cases →',
@@ -16,6 +20,14 @@ const {
   tilt = '0',
 } = Astro.props;
 const tiltClass = tilt === '0' ? '' : tilt === '-1' ? '-rotate-1' : tilt === '1' ? 'rotate-1' : 'rotate-2';
+const caseFill: Record<string, string> = {
+  pink: '#FF4D8F',
+  cyan: '#4DD2FF',
+  lime: '#B6FF6E',
+  sun:  '#FFD93D',
+  cream:'#FFFBE6',
+};
+const fill = caseFill[caseColor] ?? caseFill.pink;
 ---
 <aside class={`relative rounded-3xl border-4 border-ink bg-lime p-5 shadow-chunky ${tiltClass}`}>
   <!-- "AD" badge -->
@@ -24,17 +36,29 @@ const tiltClass = tilt === '0' ? '' : tilt === '-1' ? '-rotate-1' : tilt === '1'
   </div>
 
   <!-- POW! comic burst -->
-  <div class="absolute -top-4 -right-2 text-3xl rotate-12 select-none" aria-hidden="true">💥</div>
+  <div class="absolute -top-4 -right-2 text-3xl rotate-12 select-none animate-wobble" aria-hidden="true">💥</div>
 
   <div class="flex gap-4 items-center">
-    <img
-      src={imageUrl}
-      alt={headline}
-      loading="lazy"
-      width="120"
-      height="120"
-      class="w-28 h-28 md:w-32 md:h-32 object-contain bg-cream rounded-2xl border-2 border-ink flex-shrink-0"
-    />
+    <!-- Inline SVG "phone case" sticker — no image fetch, never 404s -->
+    <div class="relative w-28 h-28 md:w-32 md:h-32 flex-shrink-0">
+      <svg viewBox="0 0 100 120" class="w-full h-full" aria-hidden="true">
+        <!-- case body -->
+        <rect x="8" y="6" width="84" height="108" rx="16" ry="16"
+              fill={fill} stroke="#1A1A1A" stroke-width="5"/>
+        <!-- camera bump -->
+        <rect x="20" y="14" width="22" height="14" rx="4" ry="4"
+              fill="#1A1A1A" opacity="0.85"/>
+        <circle cx="28" cy="21" r="3" fill="#FFFBE6"/>
+        <circle cx="38" cy="21" r="2" fill="#FFFBE6" opacity="0.7"/>
+        <!-- highlight stripe -->
+        <rect x="14" y="40" width="6" height="60" rx="3" fill="#FFFBE6" opacity="0.45"/>
+      </svg>
+      <!-- emoji centered on the case -->
+      <div class="absolute inset-0 flex items-center justify-center text-5xl md:text-6xl sticker-emoji animate-bounce-soft select-none" aria-hidden="true">
+        {emoji}
+      </div>
+    </div>
+
     <div class="min-w-0 flex-1">
       <h3 class="font-bold text-lg md:text-xl leading-tight text-ink mb-2">{headline}</h3>
       {promoCode && (

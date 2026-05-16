@@ -11,29 +11,33 @@ import { getEntry } from 'astro:content';
 const data = await getEntry('games', 'questions');
 const allQuestions = data?.data.categories.flatMap(c => c.questions) ?? [];
 
-// PCFK ads — real product images URLs are placeholders pending phonecasesforkids.com launch.
+// PCFK ads — emoji+color placeholders until real product images are wired in from phonecasesforkids.com.
 const adsTop = [
   {
-    imageUrl: 'https://phonecasesforall.com/hero-cases/dino-iphone.png',
+    emoji: '🦖',
+    caseColor: 'lime' as const,
     headline: 'Tough kid cases. Built to bounce.',
     ctaHref: 'https://phonecasesforkids.com?utm_source=pickit&utm_medium=ad&utm_campaign=above_fold',
     tilt: '-1' as const,
   },
   {
-    imageUrl: 'https://phonecasesforall.com/hero-cases/rainbow-iphone.png',
+    emoji: '🌈',
+    caseColor: 'cyan' as const,
     headline: 'Rainbow rad cases for every phone.',
     ctaHref: 'https://phonecasesforkids.com?utm_source=pickit&utm_medium=ad&utm_campaign=above_fold',
     tilt: '1' as const,
   },
 ];
 const adBetween = {
-  imageUrl: 'https://phonecasesforall.com/hero-cases/glitter-iphone.png',
+  emoji: '✨',
+  caseColor: 'pink' as const,
   headline: 'Glitter cases that survive recess.',
   ctaHref: 'https://phonecasesforkids.com?utm_source=pickit&utm_medium=ad&utm_campaign=between',
   tilt: '2' as const,
 };
 const adFooter = {
-  imageUrl: 'https://phonecasesforall.com/hero-cases/galaxy-iphone.png',
+  emoji: '🌌',
+  caseColor: 'sun' as const,
   headline: 'Galaxy cases. Out of this world.',
   ctaHref: 'https://phonecasesforkids.com?utm_source=pickit&utm_medium=ad&utm_campaign=footer',
   tilt: '-1' as const,
