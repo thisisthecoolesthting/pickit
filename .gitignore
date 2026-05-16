@@ -14,3 +14,8 @@ Thumbs.db
 # Editor
 .vscode/
 .idea/
+
+# local one-off deploy helpers + stray scp temp files
+deploy@*
+*.cmd
+*.ps1
