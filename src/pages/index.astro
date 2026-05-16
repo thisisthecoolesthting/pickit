@@ -1,0 +1,116 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import GameRunner from '@/components/GameRunner.astro';
+import KidsCaseAd from '@/components/KidsCaseAd.astro';
+import HowToPlay from '@/components/HowToPlay.astro';
+import CategoriesGrid from '@/components/CategoriesGrid.astro';
+import FAQ from '@/components/FAQ.astro';
+import AboutKids from '@/components/AboutKids.astro';
+import { getEntry } from 'astro:content';
+
+const data = await getEntry('games', 'questions');
+const allQuestions = data?.data.categories.flatMap(c => c.questions) ?? [];
+
+// PCFK ads — real product images URLs are placeholders pending phonecasesforkids.com launch.
+const adsTop = [
+  {
+    imageUrl: 'https://phonecasesforall.com/hero-cases/dino-iphone.png',
+    headline: 'Tough kid cases. Built to bounce.',
+    ctaHref: 'https://phonecasesforkids.com?utm_source=pickit&utm_medium=ad&utm_campaign=above_fold',
+    tilt: '-1' as const,
+  },
+  {
+    imageUrl: 'https://phonecasesforall.com/hero-cases/rainbow-iphone.png',
+    headline: 'Rainbow rad cases for every phone.',
+    ctaHref: 'https://phonecasesforkids.com?utm_source=pickit&utm_medium=ad&utm_campaign=above_fold',
+    tilt: '1' as const,
+  },
+];
+const adBetween = {
+  imageUrl: 'https://phonecasesforall.com/hero-cases/glitter-iphone.png',
+  headline: 'Glitter cases that survive recess.',
+  ctaHref: 'https://phonecasesforkids.com?utm_source=pickit&utm_medium=ad&utm_campaign=between',
+  tilt: '2' as const,
+};
+const adFooter = {
+  imageUrl: 'https://phonecasesforall.com/hero-cases/galaxy-iphone.png',
+  headline: 'Galaxy cases. Out of this world.',
+  ctaHref: 'https://phonecasesforkids.com?utm_source=pickit&utm_medium=ad&utm_campaign=footer',
+  tilt: '-1' as const,
+};
+---
+<BaseLayout
+  title="pickit.kids — silly Would You Rather games for kids ages 9–12 | free, no signup"
+  description="Free Would You Rather questions for kids 9–12. 100 hand-picked silly age-appropriate questions across 10 categories. Random new game every visit. No accounts, no tracking, no personal info collected."
+>
+  <!-- Hero -->
+  <header class="text-center mb-8">
+    <div class="text-6xl md:text-7xl mb-2" aria-hidden="true">🎮</div>
+    <h1 class="font-display text-5xl md:text-6xl font-bold text-ink leading-none mb-2">
+      pick<span class="text-pink-deep">it</span>!
+    </h1>
+    <p class="text-xl md:text-2xl font-bold text-ink/70">Would You Rather — for kids ages 9–12.</p>
+    <p class="text-base md:text-lg text-ink/60 mt-2 max-w-xl mx-auto">
+      A brand new silly game every time you visit. 20 random questions. No signup, no tracking, just <em>pick.</em>
+    </p>
+  </header>
+
+  <!-- Game -->
+  <GameRunner questions={allQuestions} perGame={20} />
+
+  <!-- Above-fold-ish ads -->
+  <section class="mt-10 grid gap-5 md:grid-cols-2" aria-label="Sponsored phone case ads">
+    {adsTop.map(ad => <KidsCaseAd {...ad} />)}
+  </section>
+
+  <!-- SEO intro: what is this, why -->
+  <section id="about-the-game" class="mt-12 max-w-2xl mx-auto">
+    <h2 class="text-3xl md:text-4xl font-bold text-ink mb-4 text-center">Would You Rather: the silliest game on the internet</h2>
+    <div class="space-y-3 text-base md:text-lg text-ink/85 leading-relaxed">
+      <p>
+        Would You Rather is the game where every question forces you to pick between two ridiculous options. Sometimes both are amazing. Sometimes both are awful. Sometimes one is glitter sneezes and the other is bubble burps and you genuinely cannot decide.
+      </p>
+      <p>
+        That's the whole game. There's no winner. There's no leaderboard. There's no app to download. You just pick.
+      </p>
+      <p>
+        <strong>pickit.kids</strong> is built specifically for kids ages 9 to 12. Every one of our 100 questions has been hand-checked for age-appropriate themes — silly food, friendly animals, superpowers, magic, school, sports, weather, sweets, gross-but-funny harmless stuff, friendship. Nothing scary. Nothing about appearance or romance. Nothing brand-named. Nothing political. Just genuinely tough silly choices that a kid would actually want to think about.
+      </p>
+      <p>
+        Each visit shuffles the full pool and hands you 20 random questions, so two visits in a row will feel completely different. The mix of categories changes. The vibes change. That's the point.
+      </p>
+    </div>
+  </section>
+
+  <!-- Between-question ad (one-off) -->
+  <section class="mt-10 max-w-md mx-auto" aria-label="Sponsored phone case ad">
+    <KidsCaseAd {...adBetween} />
+  </section>
+
+  <!-- Categories -->
+  <CategoriesGrid />
+
+  <!-- How to play -->
+  <HowToPlay />
+
+  <!-- FAQ (also drops FAQPage schema) -->
+  <FAQ />
+
+  <!-- For parents -->
+  <AboutKids />
+
+  <!-- Footer ad -->
+  <section class="mt-10 max-w-md mx-auto" aria-label="Sponsored phone case ad">
+    <KidsCaseAd {...adFooter} />
+  </section>
+
+  <!-- Final pitch -->
+  <section class="mt-12 text-center max-w-xl mx-auto">
+    <div class="text-5xl mb-3" aria-hidden="true">🎲</div>
+    <h2 class="text-2xl md:text-3xl font-bold text-ink mb-2">Ready for another random game?</h2>
+    <p class="text-ink/70 mb-4">Refresh the page and you'll get a brand new shuffled set of 20 questions from a totally different mix of categories.</p>
+    <a href="/" class="inline-block rounded-full bg-lime hover:bg-lime-deep border-4 border-ink px-8 py-4 text-xl font-bold text-ink shadow-chunky transition-transform active:translate-x-1 active:translate-y-1">
+      🔁 New random game →
+    </a>
+  </section>
+</BaseLayout>

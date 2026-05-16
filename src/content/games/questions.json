@@ -1,0 +1,166 @@
+{
+  "version": 1,
+  "generated_at": "2026-05-15T12:00:00Z",
+  "categories": [
+    {
+      "id": "animals",
+      "name": "Animals",
+      "questions": [
+        { "id": "ani-01", "a": "Have a pet pony in your bedroom", "a_emoji": "🐴", "b": "Have a tiny dragon in your backpack", "b_emoji": "🐲" },
+        { "id": "ani-02", "a": "Speak to dogs all day", "a_emoji": "🐶", "b": "Speak to cats all day", "b_emoji": "🐱" },
+        { "id": "ani-03", "a": "Have a friendly fox as a sidekick", "a_emoji": "🦊", "b": "Have a friendly owl as a sidekick", "b_emoji": "🦉" },
+        { "id": "ani-04", "a": "Ride a giant turtle to school", "a_emoji": "🐢", "b": "Ride a hopping kangaroo to school", "b_emoji": "🦘" },
+        { "id": "ani-05", "a": "A parrot that does your homework", "a_emoji": "🦜", "b": "A hamster that does your chores", "b_emoji": "🐹" },
+        { "id": "ani-06", "a": "A pet penguin in a frosty room", "a_emoji": "🐧", "b": "A pet flamingo in a sunny yard", "b_emoji": "🦩" },
+        { "id": "ani-07", "a": "A tiny elephant as a pet", "a_emoji": "🐘", "b": "A giant fluffy hamster as a pet", "b_emoji": "🐹" },
+        { "id": "ani-08", "a": "Swim with playful dolphins", "a_emoji": "🐬", "b": "Splash around with cheerful otters", "b_emoji": "🦦" },
+        { "id": "ani-09", "a": "A panda that loves to nap with you", "a_emoji": "🐼", "b": "A koala that snuggles all day long", "b_emoji": "🐨" },
+        { "id": "ani-10", "a": "A chameleon that matches your outfit", "a_emoji": "🦎", "b": "A peacock that struts behind you", "b_emoji": "🦚" }
+      ]
+    },
+    {
+      "id": "food",
+      "name": "Food",
+      "questions": [
+        { "id": "foo-01", "a": "Pizza for every meal forever", "a_emoji": "🍕", "b": "Tacos for every meal forever", "b_emoji": "🌮" },
+        { "id": "foo-02", "a": "Spaghetti that never ends", "a_emoji": "🍝", "b": "Ice cream that never melts", "b_emoji": "🍨" },
+        { "id": "foo-03", "a": "Mac and cheese that's always warm", "a_emoji": "🧀", "b": "Nuggets that taste like anything you want", "b_emoji": "🍗" },
+        { "id": "foo-04", "a": "Pancakes for breakfast forever", "a_emoji": "🥞", "b": "Waffles for breakfast forever", "b_emoji": "🧇" },
+        { "id": "foo-05", "a": "A burger that refills itself", "a_emoji": "🍔", "b": "Fries that refill themselves", "b_emoji": "🍟" },
+        { "id": "foo-06", "a": "Sushi rolls you can eat all day", "a_emoji": "🍣", "b": "Dumplings you can eat all day", "b_emoji": "🥟" },
+        { "id": "foo-07", "a": "A grilled cheese that grows wings", "a_emoji": "🥪", "b": "A hot dog that does silly tricks", "b_emoji": "🌭" },
+        { "id": "foo-08", "a": "Cereal that floats in midair", "a_emoji": "🥣", "b": "Soup that swirls all by itself", "b_emoji": "🍲" },
+        { "id": "foo-09", "a": "A salad that tastes like candy", "a_emoji": "🥗", "b": "Candy that tastes like salad", "b_emoji": "🍬" },
+        { "id": "foo-10", "a": "Toast with rainbow butter", "a_emoji": "🍞", "b": "Pancakes with sparkling syrup", "b_emoji": "🥞" }
+      ]
+    },
+    {
+      "id": "superpowers",
+      "name": "Superpowers",
+      "questions": [
+        { "id": "sup-01", "a": "Fly high through the sky", "a_emoji": "🦅", "b": "Swim deep like a fish", "b_emoji": "🐟" },
+        { "id": "sup-02", "a": "Be invisible whenever you want", "a_emoji": "👻", "b": "Read minds whenever you want", "b_emoji": "🧠" },
+        { "id": "sup-03", "a": "Run faster than a race car", "a_emoji": "💨", "b": "Lift things heavier than a bus", "b_emoji": "💪" },
+        { "id": "sup-04", "a": "Talk to any animal", "a_emoji": "🐾", "b": "Talk to any plant", "b_emoji": "🌿" },
+        { "id": "sup-05", "a": "Stretchy rubber arms", "a_emoji": "🦑", "b": "Sticky climbing hands", "b_emoji": "🦎" },
+        { "id": "sup-06", "a": "Freeze time for five minutes a day", "a_emoji": "⏱️", "b": "Rewind one minute, twice a day", "b_emoji": "⏪" },
+        { "id": "sup-07", "a": "Shoot bubbles from your fingers", "a_emoji": "🫧", "b": "Shoot confetti from your palms", "b_emoji": "🎊" },
+        { "id": "sup-08", "a": "Teleport anywhere you've been", "a_emoji": "🌀", "b": "Become any animal for ten minutes", "b_emoji": "🦁" },
+        { "id": "sup-09", "a": "Control the wind", "a_emoji": "🌬️", "b": "Control water", "b_emoji": "💧" },
+        { "id": "sup-10", "a": "Grow butterfly wings", "a_emoji": "🦋", "b": "Grow fish gills", "b_emoji": "🐠" }
+      ]
+    },
+    {
+      "id": "adventure",
+      "name": "Adventure",
+      "questions": [
+        { "id": "adv-01", "a": "Explore a hidden jungle temple", "a_emoji": "🌴", "b": "Explore a frozen mountain cave", "b_emoji": "❄️" },
+        { "id": "adv-02", "a": "Sail a pirate ship to find treasure", "a_emoji": "⛵", "b": "Fly a hot air balloon over volcanoes", "b_emoji": "🎈" },
+        { "id": "adv-03", "a": "Camp in a treehouse for a week", "a_emoji": "🏕️", "b": "Camp in a desert tent for a week", "b_emoji": "🏜️" },
+        { "id": "adv-04", "a": "Zipline across a deep canyon", "a_emoji": "🌉", "b": "Kayak down a winding river", "b_emoji": "🛶" },
+        { "id": "adv-05", "a": "Search for lost dinosaur bones", "a_emoji": "🦕", "b": "Search for shiny gemstones", "b_emoji": "💎" },
+        { "id": "adv-06", "a": "Hike to a tall mountain peak", "a_emoji": "⛰️", "b": "Dive down to a colorful coral reef", "b_emoji": "🤿" },
+        { "id": "adv-07", "a": "Live in a lighthouse by the sea", "a_emoji": "🌊", "b": "Live in a cozy cabin in the woods", "b_emoji": "🌲" },
+        { "id": "adv-08", "a": "Solve riddles in a maze garden", "a_emoji": "🌿", "b": "Find clues in a dusty old library", "b_emoji": "📚" },
+        { "id": "adv-09", "a": "Find a map that leads to a waterfall", "a_emoji": "🗺️", "b": "Find a map that leads to a secret cave", "b_emoji": "🧭" },
+        { "id": "adv-10", "a": "Ride a giant eagle through clouds", "a_emoji": "🦅", "b": "Ride a giant whale through waves", "b_emoji": "🐳" }
+      ]
+    },
+    {
+      "id": "magic",
+      "name": "Magic",
+      "questions": [
+        { "id": "mag-01", "a": "Cast a spell that makes things glow", "a_emoji": "✨", "b": "Cast a spell that makes things float", "b_emoji": "🎈" },
+        { "id": "mag-02", "a": "A magic wand that paints", "a_emoji": "🎨", "b": "A magic wand that builds", "b_emoji": "🛠️" },
+        { "id": "mag-03", "a": "Brew potions that taste like fruit", "a_emoji": "🍓", "b": "Brew potions that smell like cookies", "b_emoji": "🍪" },
+        { "id": "mag-04", "a": "Own a flying broomstick", "a_emoji": "🧹", "b": "Own a flying magic carpet", "b_emoji": "☁️" },
+        { "id": "mag-05", "a": "Have a tiny fairy assistant", "a_emoji": "🧚", "b": "Have a friendly gnome assistant", "b_emoji": "🧙" },
+        { "id": "mag-06", "a": "Speak to a wise old owl", "a_emoji": "🦉", "b": "Speak to a wise old turtle", "b_emoji": "🐢" },
+        { "id": "mag-07", "a": "A portal to a candy kingdom", "a_emoji": "🍭", "b": "A portal to a cloud kingdom", "b_emoji": "☁️" },
+        { "id": "mag-08", "a": "Make your shadow do a dance", "a_emoji": "👤", "b": "Make your reflection wave back", "b_emoji": "🪞" },
+        { "id": "mag-09", "a": "Turn rocks into bouncing balls", "a_emoji": "⚽", "b": "Turn leaves into paper airplanes", "b_emoji": "✈️" },
+        { "id": "mag-10", "a": "Live in a treehouse castle", "a_emoji": "🏰", "b": "Live in a bubble palace under the sea", "b_emoji": "🫧" }
+      ]
+    },
+    {
+      "id": "sports",
+      "name": "Sports",
+      "questions": [
+        { "id": "spo-01", "a": "Score the winning soccer goal", "a_emoji": "⚽", "b": "Hit a home run in baseball", "b_emoji": "⚾" },
+        { "id": "spo-02", "a": "Be the fastest swimmer at the pool", "a_emoji": "🏊", "b": "Be the fastest runner at the track", "b_emoji": "🏃" },
+        { "id": "spo-03", "a": "Ride a skateboard everywhere", "a_emoji": "🛹", "b": "Ride a scooter everywhere", "b_emoji": "🛴" },
+        { "id": "spo-04", "a": "Master a perfect backflip", "a_emoji": "🤸", "b": "Master a perfect cartwheel", "b_emoji": "🌀" },
+        { "id": "spo-05", "a": "Play basketball on a trampoline court", "a_emoji": "🏀", "b": "Play volleyball in a foam pit court", "b_emoji": "🏐" },
+        { "id": "spo-06", "a": "Be a star at gymnastics", "a_emoji": "🤸", "b": "Be a star at karate", "b_emoji": "🥋" },
+        { "id": "spo-07", "a": "Snowboard down a fluffy hill", "a_emoji": "🏂", "b": "Surf on tall ocean waves", "b_emoji": "🏄" },
+        { "id": "spo-08", "a": "Win a kite-flying contest", "a_emoji": "🪁", "b": "Win a bubble-blowing contest", "b_emoji": "🫧" },
+        { "id": "spo-09", "a": "Bowl a perfect game", "a_emoji": "🎳", "b": "Get a hole-in-one at mini golf", "b_emoji": "⛳" },
+        { "id": "spo-10", "a": "Ride a unicycle around town", "a_emoji": "🎪", "b": "Juggle three balls while walking", "b_emoji": "🤹" }
+      ]
+    },
+    {
+      "id": "sweets",
+      "name": "Sweets & Treats",
+      "questions": [
+        { "id": "swe-01", "a": "Swim in a river of chocolate", "a_emoji": "🍫", "b": "Sit on a fluffy marshmallow cloud", "b_emoji": "☁️" },
+        { "id": "swe-02", "a": "Endless gummy bears", "a_emoji": "🐻", "b": "Endless lollipops", "b_emoji": "🍭" },
+        { "id": "swe-03", "a": "Cupcakes that frost themselves", "a_emoji": "🧁", "b": "Cookies that decorate themselves", "b_emoji": "🍪" },
+        { "id": "swe-04", "a": "A donut tree in your yard", "a_emoji": "🍩", "b": "A cotton candy bush in your yard", "b_emoji": "🍡" },
+        { "id": "swe-05", "a": "Rainbow sprinkles on everything", "a_emoji": "🌈", "b": "Chocolate chips in everything", "b_emoji": "🍫" },
+        { "id": "swe-06", "a": "Bake a cake taller than your house", "a_emoji": "🎂", "b": "Bake brownies the size of a car", "b_emoji": "🚗" },
+        { "id": "swe-07", "a": "Eat a giant gummy worm", "a_emoji": "🐛", "b": "Eat a giant chocolate bar", "b_emoji": "🍫" },
+        { "id": "swe-08", "a": "A milkshake that never gets warm", "a_emoji": "🥤", "b": "A slushie that never melts", "b_emoji": "❄️" },
+        { "id": "swe-09", "a": "Caramel apples for breakfast", "a_emoji": "🍎", "b": "Chocolate strawberries for breakfast", "b_emoji": "🍓" },
+        { "id": "swe-10", "a": "Pick fruit from a candy garden", "a_emoji": "🍬", "b": "Pick treats from a cookie tree", "b_emoji": "🍪" }
+      ]
+    },
+    {
+      "id": "silly_bodies",
+      "name": "Silly Bodies",
+      "questions": [
+        { "id": "sil-01", "a": "Sneeze glitter", "a_emoji": "✨", "b": "Burp bubbles", "b_emoji": "🫧" },
+        { "id": "sil-02", "a": "Hiccup tiny rainbows", "a_emoji": "🌈", "b": "Yawn confetti", "b_emoji": "🎊" },
+        { "id": "sil-03", "a": "Feet that squeak when you walk", "a_emoji": "👟", "b": "Hands that chime when you clap", "b_emoji": "🔔" },
+        { "id": "sil-04", "a": "Hair that changes color with your mood", "a_emoji": "🌈", "b": "Hands that leave glowing handprints", "b_emoji": "✨" },
+        { "id": "sil-05", "a": "A nose that whistles when you giggle", "a_emoji": "👃", "b": "Ears that wiggle when you smile", "b_emoji": "👂" },
+        { "id": "sil-06", "a": "Knees that bounce like springs", "a_emoji": "🦘", "b": "Elbows that spin like wheels", "b_emoji": "⚙️" },
+        { "id": "sil-07", "a": "Burp tiny clouds", "a_emoji": "☁️", "b": "Sneeze popcorn", "b_emoji": "🍿" },
+        { "id": "sil-08", "a": "Skin that glitters in sunlight", "a_emoji": "☀️", "b": "Skin that sparkles in moonlight", "b_emoji": "🌙" },
+        { "id": "sil-09", "a": "A sneeze that releases tiny butterflies", "a_emoji": "🦋", "b": "A laugh that makes fireflies appear", "b_emoji": "✨" },
+        { "id": "sil-10", "a": "Toes that play music when you wiggle them", "a_emoji": "🎵", "b": "Fingers that paint colors when you tap", "b_emoji": "🎨" }
+      ]
+    },
+    {
+      "id": "school_friends",
+      "name": "School & Friends",
+      "questions": [
+        { "id": "sch-01", "a": "A teacher who's a friendly robot", "a_emoji": "🤖", "b": "A teacher who's a wise talking owl", "b_emoji": "🦉" },
+        { "id": "sch-02", "a": "Lunches you design yourself", "a_emoji": "🍱", "b": "Homework you do inside a video game", "b_emoji": "🎮" },
+        { "id": "sch-03", "a": "Recess that lasts two hours", "a_emoji": "🤸", "b": "Art class that lasts two hours", "b_emoji": "🎨" },
+        { "id": "sch-04", "a": "A locker that gives you snacks", "a_emoji": "🍪", "b": "A desk that organizes itself", "b_emoji": "🗂️" },
+        { "id": "sch-05", "a": "A best friend who always makes you laugh", "a_emoji": "😂", "b": "A best friend who's great at every game", "b_emoji": "🎮" },
+        { "id": "sch-06", "a": "A field trip to a chocolate factory", "a_emoji": "🍫", "b": "A field trip to a giant aquarium", "b_emoji": "🐠" },
+        { "id": "sch-07", "a": "A classroom on a sandy beach", "a_emoji": "🏖️", "b": "A classroom on a snowy mountain", "b_emoji": "⛰️" },
+        { "id": "sch-08", "a": "A sleepover with five friends", "a_emoji": "🛏️", "b": "A movie night with ten friends", "b_emoji": "🍿" },
+        { "id": "sch-09", "a": "Be the best at building forts", "a_emoji": "🏰", "b": "Be the best at telling jokes", "b_emoji": "😆" },
+        { "id": "sch-10", "a": "A friend who can teleport", "a_emoji": "🌀", "b": "A friend who can grow plants instantly", "b_emoji": "🌱" }
+      ]
+    },
+    {
+      "id": "weather_outdoors",
+      "name": "Weather & Outdoors",
+      "questions": [
+        { "id": "wea-01", "a": "Rain that tastes like lemonade", "a_emoji": "🍋", "b": "Snow that tastes like vanilla ice cream", "b_emoji": "🍦" },
+        { "id": "wea-02", "a": "Sunny days every single day", "a_emoji": "☀️", "b": "Rainy days every other day", "b_emoji": "🌧️" },
+        { "id": "wea-03", "a": "Watch a double rainbow", "a_emoji": "🌈", "b": "Watch a sky full of shooting stars", "b_emoji": "🌠" },
+        { "id": "wea-04", "a": "A backyard with a huge climbing tree", "a_emoji": "🌳", "b": "A backyard with a tiny frog pond", "b_emoji": "🐸" },
+        { "id": "wea-05", "a": "Walk through a field of fireflies", "a_emoji": "✨", "b": "Walk through a field of sunflowers", "b_emoji": "🌻" },
+        { "id": "wea-06", "a": "Pet a wild bunny in a meadow", "a_emoji": "🐰", "b": "Pet a curious deer in the forest", "b_emoji": "🦌" },
+        { "id": "wea-07", "a": "Build the biggest sandcastle ever", "a_emoji": "🏖️", "b": "Build the biggest snowman ever", "b_emoji": "⛄" },
+        { "id": "wea-08", "a": "Jump in piles of crunchy leaves", "a_emoji": "🍂", "b": "Splash in puddles after a rainstorm", "b_emoji": "💦" },
+        { "id": "wea-09", "a": "Picnic on a grassy sunny hill", "a_emoji": "🧺", "b": "Picnic inside a flower garden", "b_emoji": "🌸" },
+        { "id": "wea-10", "a": "Watch the sunrise from a treehouse", "a_emoji": "🌅", "b": "Watch the sunset from a hammock", "b_emoji": "🌇" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+---
+const steps = [
+  { n: 1, emoji: '🎲', title: 'A random game loads', text: 'Every time you visit pickit.kids, the site shuffles all 100 silly Would You Rather questions and hands you 20 of them. No two visits are exactly the same.' },
+  { n: 2, emoji: '👉', title: 'You pick A or B', text: 'Tap or click the big pink button for option A, or the big cyan button for option B. There are no wrong answers. There are no right answers. That is the whole point of Would You Rather.' },
+  { n: 3, emoji: '🔄', title: 'Repeat 20 times', text: 'The next question appears immediately. Some are easy. Some are impossible. Some will make you laugh. Some will make you say "wait, what?" out loud.' },
+  { n: 4, emoji: '🎉', title: 'See your tally and play again', text: 'After 20 questions you see how many A picks vs B picks you made. Hit the big lime "Play another!" button for a brand new shuffled game.' },
+];
+---
+<section id="how-to-play" class="mt-12">
+  <h2 class="text-3xl md:text-4xl font-bold text-ink text-center mb-2">How to play pickit.kids</h2>
+  <p class="text-center text-ink/70 mb-6 max-w-xl mx-auto">Four steps. No instructions needed beyond this.</p>
+  <ol class="grid gap-4 md:grid-cols-2 list-none p-0">
+    {steps.map(s => (
+      <li class="rounded-2xl border-4 border-ink bg-cyan p-5 shadow-chunky-sm">
+        <div class="flex items-start gap-3">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-sun border-4 border-ink flex items-center justify-center font-bold text-xl text-ink">{s.n}</div>
+          <div class="min-w-0">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-2xl" aria-hidden="true">{s.emoji}</span>
+              <h3 class="font-bold text-lg text-ink">{s.title}</h3>
+            </div>
+            <p class="text-sm text-ink/80 leading-snug">{s.text}</p>
+          </div>
+        </div>
+      </li>
+    ))}
+  </ol>
+</section>

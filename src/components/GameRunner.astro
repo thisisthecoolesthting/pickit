@@ -1,0 +1,104 @@
+---
+// GameRunner: vanilla JS island.
+// Pulls the full 100-question pool from the page's data attribute,
+// shuffles, takes 20, drives the A/B flow.
+interface Props {
+  questions: { id: string; a: string; a_emoji: string; b: string; b_emoji: string }[];
+  perGame?: number;
+}
+const { questions, perGame = 20 } = Astro.props;
+---
+<div
+  id="pickit-game"
+  data-questions={JSON.stringify(questions)}
+  data-per-game={perGame}
+  class="mt-6"
+>
+  <div id="pickit-loading" class="text-center text-2xl text-ink/60">Loading the silliness…</div>
+</div>
+
+<script>
+  type Q = { id: string; a: string; a_emoji: string; b: string; b_emoji: string };
+
+  const root = document.getElementById('pickit-game')!;
+  const all: Q[] = JSON.parse(root.dataset.questions || '[]');
+  const perGame = parseInt(root.dataset.perGame || '20', 10);
+
+  // Fisher-Yates shuffle
+  function shuffle<T>(arr: T[]): T[] {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  const game: Q[] = shuffle(all).slice(0, perGame);
+  let idx = 0;
+  const picks: ('a' | 'b')[] = [];
+
+  function renderQuestion() {
+    const q = game[idx];
+    root.innerHTML = `
+      <div class="mb-4 flex items-center justify-between text-sm md:text-base font-bold text-ink/70">
+        <span>Question ${idx + 1} of ${game.length}</span>
+        <span class="rounded-full bg-sun px-3 py-1 border-2 border-ink shadow-chunky-sm">PICKIT</span>
+      </div>
+      <h2 class="mb-6 text-center text-2xl md:text-3xl font-bold text-ink">Would you rather…</h2>
+      <div class="grid gap-4 md:grid-cols-2">
+        <button data-side="a" class="tile w-full rounded-3xl border-4 border-ink bg-pink hover:bg-pink-deep px-6 py-8 text-center shadow-chunky -rotate-1 transition-transform active:translate-x-1 active:translate-y-1">
+          <div class="mb-3 text-7xl md:text-8xl leading-none select-none" aria-hidden="true">${q.a_emoji}</div>
+          <div class="text-lg md:text-xl font-bold text-ink leading-tight">${escapeHtml(q.a)}</div>
+        </button>
+        <div class="hidden md:flex items-center justify-center">
+          <div class="text-3xl font-bold text-ink/40 rotate-12">OR</div>
+        </div>
+        <div class="md:hidden text-center text-xl font-bold text-ink/40 my-1">OR</div>
+        <button data-side="b" class="tile w-full rounded-3xl border-4 border-ink bg-cyan hover:bg-cyan-deep px-6 py-8 text-center shadow-chunky rotate-1 transition-transform active:translate-x-1 active:translate-y-1">
+          <div class="mb-3 text-7xl md:text-8xl leading-none select-none" aria-hidden="true">${q.b_emoji}</div>
+          <div class="text-lg md:text-xl font-bold text-ink leading-tight">${escapeHtml(q.b)}</div>
+        </button>
+      </div>
+    `;
+    root.querySelectorAll<HTMLButtonElement>('button[data-side]').forEach(btn => {
+      btn.addEventListener('click', () => choose(btn.dataset.side as 'a' | 'b'));
+    });
+  }
+
+  function choose(side: 'a' | 'b') {
+    picks.push(side);
+    idx++;
+    if (idx >= game.length) {
+      renderSummary();
+    } else {
+      renderQuestion();
+    }
+  }
+
+  function renderSummary() {
+    const aCount = picks.filter(p => p === 'a').length;
+    const bCount = picks.filter(p => p === 'b').length;
+    root.innerHTML = `
+      <div class="text-center py-10">
+        <div class="text-7xl md:text-8xl mb-4">🎉</div>
+        <h2 class="text-3xl md:text-4xl font-bold mb-3 text-ink">All done!</h2>
+        <p class="text-lg md:text-xl text-ink/80 mb-8">You picked <span class="font-bold text-pink-deep">A: ${aCount}</span> and <span class="font-bold text-cyan-deep">B: ${bCount}</span> out of ${game.length} silly choices.</p>
+        <button id="pickit-replay" class="rounded-full bg-lime hover:bg-lime-deep border-4 border-ink px-8 py-4 text-2xl font-bold text-ink shadow-chunky transition-transform active:translate-x-1 active:translate-y-1 active:shadow-chunky-sm">
+          🔁 Play another!
+        </button>
+      </div>
+    `;
+    document.getElementById('pickit-replay')!.addEventListener('click', () => location.reload());
+  }
+
+  function escapeHtml(s: string): string {
+    return s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
+  }
+
+  if (all.length === 0) {
+    root.innerHTML = '<div class="text-center text-2xl text-ink/60">No questions loaded yet. Check back soon!</div>';
+  } else {
+    renderQuestion();
+  }
+</script>

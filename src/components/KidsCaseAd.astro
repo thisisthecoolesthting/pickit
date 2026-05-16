@@ -1,0 +1,55 @@
+---
+interface Props {
+  imageUrl: string;
+  headline: string;
+  promoCode?: string;
+  ctaText?: string;
+  ctaHref: string;
+  tilt?: '-1' | '0' | '1' | '2';
+}
+const {
+  imageUrl,
+  headline,
+  promoCode = 'PICKIT15',
+  ctaText = 'See the cases →',
+  ctaHref,
+  tilt = '0',
+} = Astro.props;
+const tiltClass = tilt === '0' ? '' : tilt === '-1' ? '-rotate-1' : tilt === '1' ? 'rotate-1' : 'rotate-2';
+---
+<aside class={`relative rounded-3xl border-4 border-ink bg-lime p-5 shadow-chunky ${tiltClass}`}>
+  <!-- "AD" badge -->
+  <div class="absolute -top-3 -left-3 rounded-full bg-sun border-3 border-ink px-3 py-1 text-xs font-bold text-ink shadow-chunky-sm">
+    AD
+  </div>
+
+  <!-- POW! comic burst -->
+  <div class="absolute -top-4 -right-2 text-3xl rotate-12 select-none" aria-hidden="true">💥</div>
+
+  <div class="flex gap-4 items-center">
+    <img
+      src={imageUrl}
+      alt={headline}
+      loading="lazy"
+      width="120"
+      height="120"
+      class="w-28 h-28 md:w-32 md:h-32 object-contain bg-cream rounded-2xl border-2 border-ink flex-shrink-0"
+    />
+    <div class="min-w-0 flex-1">
+      <h3 class="font-bold text-lg md:text-xl leading-tight text-ink mb-2">{headline}</h3>
+      {promoCode && (
+        <div class="inline-block mb-3 rounded-full bg-pink border-2 border-ink px-3 py-1 text-xs font-bold text-cream shadow-chunky-sm">
+          Code: {promoCode}
+        </div>
+      )}
+      <a
+        href={ctaHref}
+        rel="sponsored nofollow noopener"
+        target="_blank"
+        class="block w-full rounded-full bg-cyan hover:bg-cyan-deep border-3 border-ink px-4 py-2 text-center text-sm font-bold text-ink shadow-chunky-sm transition-transform active:translate-x-1 active:translate-y-1"
+      >
+        {ctaText}
+      </a>
+    </div>
+  </div>
+</aside>

@@ -1,0 +1,71 @@
+---
+const faqs = [
+  {
+    q: 'What is pickit.kids?',
+    a: 'pickit.kids is a free Would You Rather game for kids ages 9 to 12. Every visit picks a random game of 20 silly age-appropriate questions from our pool of 100. No accounts. No logins. No personal info collected.',
+  },
+  {
+    q: 'Is pickit.kids really free?',
+    a: 'Yes. Free. Always. We pay the bills with a few clearly-labeled phone case ads. Kids never see anything that pretends not to be an ad.',
+  },
+  {
+    q: 'What ages is this for?',
+    a: 'pickit.kids is built for kids 9 to 12. Reading level is roughly grade five. All 100 questions are filtered for age-appropriate themes: silly food, friendly animals, superpowers, magic, school, sports, weather, sweets, gross-but-funny harmless stuff, friendship. Nothing scary, nothing political, nothing about dating or body image, nothing brand-named.',
+  },
+  {
+    q: 'Do you collect personal information?',
+    a: 'No. No accounts, no email signup, no cookies that track you between sessions, no third-party ad networks, no demographic profiling. We use Google Analytics in its "Made for Kids" mode, which means: no personalized ads, no IP collection, no User-ID, no demographic inference. That is the highest privacy setting Google offers.',
+  },
+  {
+    q: 'How does the game work?',
+    a: 'Open the page, you get 20 random questions, one at a time. Tap A or B. Repeat 20 times. At the end you see your tally and a "Play another!" button. Refresh for a brand new set. There are no right or wrong answers, that is the whole point.',
+  },
+  {
+    q: 'Can I pick which category I want?',
+    a: 'Not yet. Every game shuffles randomly from all 10 categories so the mix is different each visit. Adding category-pick games is on the roadmap once we have more questions in the pool.',
+  },
+  {
+    q: 'How often do you add new questions?',
+    a: 'We started with 100. We add 20 to 50 new questions every few weeks. The pool only grows, so older favorites stay in rotation alongside the new ones.',
+  },
+  {
+    q: 'Why is the design so loud?',
+    a: 'Kids 9 to 12 told us muted-and-elegant is for grandparents. So we went the other way: chunky borders, drop shadows, bright primary colors, big emoji, bouncy buttons. The site should feel like a cartoon you can play.',
+  },
+  {
+    q: 'Are the phone case ads safe?',
+    a: 'Yes. Every ad on pickit.kids is for a phone case brand we have personally vetted. No gambling, no supplements, no mature themes, no fake "you won a prize" nonsense. Each ad is clearly labeled "AD" and links only to phone case shopping pages.',
+  },
+  {
+    q: 'Is this site good for classroom use?',
+    a: 'Teachers and after-school programs are welcome. The questions are conversation-starters, no profanity, no controversy. Many teachers use the random-game mechanic as a 5-minute "morning meeting" warm-up to get kids talking and laughing.',
+  },
+];
+
+// Schema.org FAQPage structured data (helps Google show rich results)
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(f => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+<section id="faq" class="mt-12">
+  <h2 class="text-3xl md:text-4xl font-bold text-ink text-center mb-6">Stuff parents (and curious kids) ask</h2>
+  <div class="space-y-3 max-w-2xl mx-auto">
+    {faqs.map(f => (
+      <details class="group rounded-2xl border-4 border-ink bg-sun p-4 shadow-chunky-sm cursor-pointer">
+        <summary class="font-bold text-lg text-ink list-none flex items-center justify-between gap-3">
+          <span>{f.q}</span>
+          <span class="text-2xl flex-shrink-0 transition-transform group-open:rotate-45" aria-hidden="true">➕</span>
+        </summary>
+        <p class="mt-3 text-base text-ink/80 leading-relaxed">{f.a}</p>
+      </details>
+    ))}
+  </div>
+</section>
+
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />

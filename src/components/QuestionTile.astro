@@ -1,0 +1,19 @@
+---
+interface Props {
+  side: 'a' | 'b';
+  emoji: string;
+  text: string;
+}
+const { side, emoji, text } = Astro.props;
+const colorClass = side === 'a'
+  ? 'bg-pink hover:bg-pink-deep border-ink shadow-chunky -rotate-tilt-1'
+  : 'bg-cyan hover:bg-cyan-deep border-ink shadow-chunky rotate-tilt-1';
+---
+<button
+  type="button"
+  class={`tile w-full rounded-3xl border-chunky ${colorClass} px-6 py-8 text-center transition-transform duration-100 active:translate-x-1 active:translate-y-1 active:shadow-chunky-sm`}
+  data-side={side}
+>
+  <div class="text-7xl md:text-8xl mb-3 leading-none select-none" aria-hidden="true">{emoji}</div>
+  <div class="text-lg md:text-xl font-bold text-ink leading-tight">{text}</div>
+</button>

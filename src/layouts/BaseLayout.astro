@@ -1,0 +1,102 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+const {
+  title = 'pickit.kids — silly Would You Rather games for kids',
+  description = 'Free Would You Rather games for kids ages 9–12. Pick your side. Faster. No accounts, no signups, just silly.',
+} = Astro.props;
+
+// GA4 ID placeholder — replace with real ID after creating the GA4 property
+// IMPORTANT: After creating the property, you MUST flip the
+// "Treat as Made for Kids" checkbox in GA4 → Admin → Property settings.
+// That disables personalized ads, IP collection, demographic inference, and
+// User-ID — required for COPPA compliance.
+const GA4_ID = import.meta.env.PUBLIC_GA4_ID || '';
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="generator" content={Astro.generator} />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:site_name" content="pickit.kids" />
+
+  <!-- Fredoka -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Schema.org: WebSite + Game -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        '@id': 'https://pickit.kids/#website',
+        url: 'https://pickit.kids/',
+        name: 'pickit.kids',
+        description: 'Free Would You Rather games for kids ages 9-12. Random silly questions, no signup, no tracking.',
+        inLanguage: 'en-US',
+        publisher: { '@type': 'Organization', name: 'pickit.kids' },
+      },
+      {
+        '@type': 'Game',
+        name: 'pickit.kids Would You Rather',
+        description: '100 silly age-appropriate Would You Rather questions for kids ages 9-12, served in random games of 20.',
+        url: 'https://pickit.kids/',
+        genre: 'Party Game',
+        audience: { '@type': 'PeopleAudience', suggestedMinAge: 9, suggestedMaxAge: 12 },
+        applicationCategory: 'GameApplication',
+        operatingSystem: 'Web',
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+      },
+    ],
+  })} />
+
+  {GA4_ID && (
+    <>
+      <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`}></script>
+      <script is:inline define:vars={{ GA4_ID }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        // COPPA-safe configuration:
+        // - restricted_data_processing: limits data collected
+        // - anonymize_ip: drops last IP octet
+        // - allow_ad_personalization_signals: false
+        // - allow_google_signals: false
+        gtag('config', GA4_ID, {
+          'restricted_data_processing': true,
+          'anonymize_ip': true,
+          'allow_ad_personalization_signals': false,
+          'allow_google_signals': false
+        });
+      </script>
+    </>
+  )}
+</head>
+<body class="bg-cream min-h-screen font-sans text-ink antialiased">
+  <main class="mx-auto max-w-3xl px-4 py-6 md:px-6 md:py-10">
+    <slot />
+  </main>
+
+  <footer class="mx-auto max-w-3xl px-4 pb-10 text-center text-xs text-ink/60">
+    <p class="mb-2">pickit.kids — silly games for ages 9–12.</p>
+    <p class="mb-2">No accounts. No tracking. No personal info collected.</p>
+    <p>
+      Some links on this site are affiliate links. If you buy something through them we may earn a small commission at no extra cost to you.
+    </p>
+  </footer>
+</body>
+</html>
