@@ -21,7 +21,7 @@ const cats = [
     {cats.map((c, i) => (
       <div class={`rounded-2xl border-4 border-ink p-4 shadow-chunky-sm bg-cream ${i % 4 === 0 ? '-rotate-1' : i % 4 === 1 ? 'rotate-1' : i % 4 === 2 ? '-rotate-2' : 'rotate-2'}`}>
         <div class="flex items-start gap-3">
-          <div class="text-4xl md:text-5xl flex-shrink-0" aria-hidden="true">{c.emoji}</div>
+          <div class="text-4xl md:text-5xl flex-shrink-0 sticker-emoji-sm" aria-hidden="true">{c.emoji}</div>
           <div class="min-w-0">
             <h3 class="font-bold text-lg md:text-xl text-ink mb-1">{c.name}</h3>
             <p class="text-sm text-ink/70 leading-snug">{c.desc}</p>

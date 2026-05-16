@@ -30,6 +30,47 @@ export default {
         'tilt-n1': '-1deg',
         'tilt-n2': '-2deg',
       },
+      keyframes: {
+        wobble: {
+          '0%, 100%': { transform: 'rotate(-2deg)' },
+          '50%': { transform: 'rotate(2deg)' },
+        },
+        bounceSoft: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-6px)' },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0) rotate(0deg)' },
+          '50%': { transform: 'translateY(-10px) rotate(4deg)' },
+        },
+        sparkle: {
+          '0%, 100%': { opacity: '0.55', transform: 'scale(1) rotate(0deg)' },
+          '50%': { opacity: '1', transform: 'scale(1.2) rotate(20deg)' },
+        },
+        wiggle: {
+          '0%, 100%': { transform: 'rotate(-3deg)' },
+          '25%': { transform: 'rotate(3deg)' },
+          '50%': { transform: 'rotate(-2deg)' },
+          '75%': { transform: 'rotate(2deg)' },
+        },
+        confettiFall: {
+          '0%': { transform: 'translateY(-20px) rotate(0deg)', opacity: '1' },
+          '100%': { transform: 'translateY(110vh) rotate(720deg)', opacity: '0' },
+        },
+        popIn: {
+          '0%': { transform: 'scale(0) rotate(-20deg)', opacity: '0' },
+          '60%': { transform: 'scale(1.15) rotate(5deg)', opacity: '1' },
+          '100%': { transform: 'scale(1) rotate(0deg)', opacity: '1' },
+        },
+      },
+      animation: {
+        wobble: 'wobble 1.8s ease-in-out infinite',
+        'bounce-soft': 'bounceSoft 2.2s ease-in-out infinite',
+        float: 'float 4s ease-in-out infinite',
+        sparkle: 'sparkle 2s ease-in-out infinite',
+        wiggle: 'wiggle 0.6s ease-in-out',
+        'pop-in': 'popIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both',
+      },
     },
   },
   plugins: [],
