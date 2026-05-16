@@ -49,26 +49,26 @@ const { questions, perGame = 20 } = Astro.props;
         <span class="inline-block animate-bounce-soft mr-1" aria-hidden="true">🤔</span>
         Would you rather…
       </h2>
-      <div class="relative flex items-stretch gap-2 md:gap-3 animate-pop-in">
-        <button data-side="a" class="tile flex-1 min-w-0 rounded-2xl md:rounded-3xl border-4 border-ink bg-gradient-to-br from-pink to-pink-deep px-2 py-4 md:px-6 md:py-8 text-center shadow-chunky -rotate-1 transition-transform active:translate-x-1 active:translate-y-1">
-          <div class="mb-2 md:mb-3 text-5xl sm:text-6xl md:text-8xl leading-none select-none sticker-emoji" aria-hidden="true">${q.a_emoji}</div>
-          <div class="text-xs sm:text-sm md:text-xl font-bold text-ink leading-tight break-words hyphens-auto">${escapeHtml(q.a)}</div>
+      <div class="relative flex flex-col md:flex-row items-stretch gap-3 md:gap-3 animate-pop-in">
+        <button data-side="a" class="tile flex-1 min-w-0 rounded-2xl md:rounded-3xl border-4 border-ink bg-gradient-to-br from-pink to-pink-deep px-4 py-6 md:px-6 md:py-8 text-center shadow-chunky -rotate-1 transition-transform active:translate-x-1 active:translate-y-1">
+          <div class="mb-2 md:mb-3 text-7xl md:text-8xl leading-none select-none sticker-emoji" aria-hidden="true">${q.a_emoji}</div>
+          <div class="text-base md:text-xl font-bold text-ink leading-tight break-words hyphens-auto">${escapeHtml(q.a)}</div>
         </button>
 
-        <!-- VS starburst badge, centered between the tiles -->
+        <!-- VS starburst badge, centered between the tiles (works for both vertical + horizontal layouts) -->
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none animate-wobble">
           <div class="relative">
-            <svg class="w-14 h-14 md:w-24 md:h-24 drop-shadow-[3px_3px_0_rgba(26,26,26,0.85)]" viewBox="0 0 100 100" aria-hidden="true">
+            <svg class="w-16 h-16 md:w-24 md:h-24 drop-shadow-[3px_3px_0_rgba(26,26,26,0.85)]" viewBox="0 0 100 100" aria-hidden="true">
               <polygon points="50,2 61,34 95,35 67,55 78,92 50,72 22,92 33,55 5,35 39,34"
                        fill="#FFD93D" stroke="#1A1A1A" stroke-width="5" stroke-linejoin="round"/>
             </svg>
-            <div class="absolute inset-0 flex items-center justify-center text-base md:text-2xl font-extrabold text-ink select-none">VS</div>
+            <div class="absolute inset-0 flex items-center justify-center text-xl md:text-2xl font-extrabold text-ink select-none">VS</div>
           </div>
         </div>
 
-        <button data-side="b" class="tile flex-1 min-w-0 rounded-2xl md:rounded-3xl border-4 border-ink bg-gradient-to-br from-cyan to-cyan-deep px-2 py-4 md:px-6 md:py-8 text-center shadow-chunky rotate-1 transition-transform active:translate-x-1 active:translate-y-1">
-          <div class="mb-2 md:mb-3 text-5xl sm:text-6xl md:text-8xl leading-none select-none sticker-emoji" aria-hidden="true">${q.b_emoji}</div>
-          <div class="text-xs sm:text-sm md:text-xl font-bold text-ink leading-tight break-words hyphens-auto">${escapeHtml(q.b)}</div>
+        <button data-side="b" class="tile flex-1 min-w-0 rounded-2xl md:rounded-3xl border-4 border-ink bg-gradient-to-br from-cyan to-cyan-deep px-4 py-6 md:px-6 md:py-8 text-center shadow-chunky rotate-1 transition-transform active:translate-x-1 active:translate-y-1">
+          <div class="mb-2 md:mb-3 text-7xl md:text-8xl leading-none select-none sticker-emoji" aria-hidden="true">${q.b_emoji}</div>
+          <div class="text-base md:text-xl font-bold text-ink leading-tight break-words hyphens-auto">${escapeHtml(q.b)}</div>
         </button>
       </div>
     `;
