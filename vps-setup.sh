@@ -1,22 +1,22 @@
 #!/bin/bash
 # vps-setup.sh — idempotent VPS provisioning for pickit.kids
-# Run on the VPS as the `deploy` user:
-#   scp vps-setup.sh deploy@187.124.246.154:/tmp/
-#   ssh deploy@187.124.246.154 'bash /tmp/vps-setup.sh'
-# Will prompt for sudo password when editing Caddyfile / reloading caddy.
+# Run on the VPS as root:
+#   scp vps-setup.sh root@187.124.246.154:/tmp/
+#   ssh root@187.124.246.154 'bash /tmp/vps-setup.sh'
 
 set -euo pipefail
 
 REPO_URL="https://github.com/thisisthecoolesthting/pickit.git"
-SITE_DIR="$HOME/pickit"
-DEPLOY_BIN="$HOME/bin/deploy-pickit.sh"
-LOG_FILE="$HOME/deploy-pickit.log"
+SITE_DIR="/var/www/pickit"
+DEPLOY_BIN="/usr/local/bin/deploy-pickit.sh"
+LOG_FILE="/var/log/pickit-deploy.log"
 CADDY_FILE="/etc/caddy/Caddyfile"
 
 say() { echo ""; echo "==== $1 ===="; }
 
 say "1. Clone repo (if missing)"
 if [ ! -d "$SITE_DIR/.git" ]; then
+  mkdir -p /var/www
   git clone "$REPO_URL" "$SITE_DIR"
   echo "  cloned to $SITE_DIR"
 else
@@ -31,21 +31,21 @@ npm run build
 echo "  dist/ built"
 
 say "3. Per-site deploy script"
-mkdir -p "$HOME/bin"
-cat > "$DEPLOY_BIN" <<'EOF'
+cat > "$DEPLOY_BIN" <<EOF
 #!/bin/bash
 set -euo pipefail
-cd "$HOME/pickit"
+cd "$SITE_DIR"
 git fetch --quiet origin main
-LOCAL=$(git rev-parse HEAD)
-REMOTE=$(git rev-parse origin/main)
-if [ "$LOCAL" = "$REMOTE" ]; then exit 0; fi
+LOCAL=\$(git rev-parse HEAD)
+REMOTE=\$(git rev-parse origin/main)
+if [ "\$LOCAL" = "\$REMOTE" ]; then exit 0; fi
 git reset --hard origin/main
 npm install --no-audit --no-fund --silent
 npm run build
-echo "[$(date -Iseconds)] Deployed $(git rev-parse --short HEAD)" >> "$HOME/deploy-pickit.log"
+echo "[\$(date -Iseconds)] Deployed \$(git rev-parse --short HEAD)" >> "$LOG_FILE"
 EOF
 chmod +x "$DEPLOY_BIN"
+touch "$LOG_FILE"
 echo "  wrote $DEPLOY_BIN"
 
 say "4. Cron entry"
@@ -58,13 +58,13 @@ else
 fi
 
 say "5. Caddy site block"
-if sudo grep -q "pickit.kids" "$CADDY_FILE"; then
+if grep -q "pickit.kids" "$CADDY_FILE" 2>/dev/null; then
   echo "  Caddyfile already mentions pickit.kids — leaving as-is"
 else
-  sudo tee -a "$CADDY_FILE" > /dev/null <<'EOF'
+  cat >> "$CADDY_FILE" <<'EOF'
 
 pickit.kids, www.pickit.kids {
-    root * /home/deploy/pickit/dist
+    root * /var/www/pickit/dist
     file_server
     encode zstd gzip
 
@@ -95,10 +95,9 @@ EOF
 fi
 
 say "6. Reload Caddy"
-sudo systemctl reload caddy
+systemctl reload caddy
 echo "  caddy reloaded"
 
 echo ""
 echo "VPS setup complete."
-echo "Once DNS for pickit.kids -> $(curl -s ifconfig.me 2>/dev/null || echo 'VPS IP') resolves,"
-echo "Caddy will auto-issue a Let's Encrypt cert on the first request (30-90s)."
+echo "Caddy will auto-issue Let's Encrypt cert on the first request to pickit.kids."
