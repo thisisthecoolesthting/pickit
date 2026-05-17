@@ -89,8 +89,8 @@ const { questions, perGame = 20 } = Astro.props;
         </button>
 
         <!-- VS starburst badge, centered between the tiles (works for both vertical + horizontal layouts) -->
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none animate-wobble">
-          <div class="relative">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none">
+          <div class="relative animate-wobble">
             <svg class="w-16 h-16 md:w-24 md:h-24 drop-shadow-[3px_3px_0_rgba(26,26,26,0.85)]" viewBox="0 0 100 100" aria-hidden="true">
               <polygon points="50,2 61,34 95,35 67,55 78,92 50,72 22,92 33,55 5,35 39,34"
                        fill="#FFD93D" stroke="#1A1A1A" stroke-width="5" stroke-linejoin="round"/>
