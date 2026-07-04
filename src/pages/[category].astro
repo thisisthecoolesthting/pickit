@@ -1,0 +1,83 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import GameRunner from '@/components/GameRunner.astro';
+import HeroCaseBar from '@/components/HeroCaseBar.astro';
+import KidsCaseAd from '@/components/KidsCaseAd.astro';
+import { getEntry } from 'astro:content';
+import { categoryBySlug, CATEGORY_PAGES } from '@/lib/categories';
+import { adCaseSets, featuredCases } from '@/lib/cases';
+import { pcfkHref } from '@/lib/site';
+
+export function getStaticPaths() {
+  return CATEGORY_PAGES.map(c => ({ params: { category: c.slug } }));
+}
+
+const { category: slug } = Astro.params;
+const meta = categoryBySlug(slug!);
+if (!meta) return Astro.redirect('/');
+
+const host = Astro.url.hostname;
+const data = await getEntry('games', 'questions');
+const cat = data?.data.categories.find(c => c.id === meta.id);
+const questions = cat?.questions ?? [];
+const sets = adCaseSets();
+const featured = featuredCases(6);
+const utm = (slot: string) => pcfkHref(slot, host, { game: 'category', category: meta.slug });
+---
+<BaseLayout title={meta.title} description={meta.description}>
+  <HeroCaseBar cases={featured} host={host} />
+
+  <header class="text-center mb-6">
+    <div class="text-5xl md:text-6xl mb-2 sticker-emoji inline-block" aria-hidden="true">{meta.emoji}</div>
+    <h1 class="font-display text-4xl md:text-5xl font-bold text-ink mb-2">{meta.h1}</h1>
+    <p class="text-lg text-ink/70 max-w-xl mx-auto">{meta.description}</p>
+    <p class="mt-3 text-sm">
+      <a href="/" class="font-bold underline decoration-cyan decoration-4 underline-offset-4">← All categories</a>
+      · <a href="/games" class="font-bold underline decoration-lime decoration-4 underline-offset-4">More games</a>
+    </p>
+  </header>
+
+  <section class="mb-8 max-w-md mx-auto" aria-label="Sponsored phone case ad">
+    <KidsCaseAd
+      cases={sets.hero}
+      bg="lime"
+      headline={`${meta.name} fan? Cases that match your picks — PICKIT15`}
+      ctaHref={utm('category_above')}
+      tilt="-1"
+    />
+  </section>
+
+  {questions.length > 0 ? (
+    <GameRunner
+      questions={questions}
+      perGame={Math.min(20, questions.length)}
+      featuredCases={featured}
+      shopHref={utm('category_post_game')}
+      gameId={`cat_${meta.slug}`}
+      caseBreakEvery={7}
+    />
+  ) : (
+    <p class="text-center text-xl text-ink/60">Questions coming soon!</p>
+  )}
+
+  <section class="mt-10 max-w-md mx-auto" aria-label="Sponsored phone case ad">
+    <KidsCaseAd
+      cases={sets.footer}
+      bg="sun"
+      headline="Tough cases kids actually want — 15% off today"
+      ctaHref={utm('category_footer')}
+      tilt="1"
+    />
+  </section>
+
+  <section class="mt-10">
+    <h2 class="text-2xl font-bold text-ink text-center mb-4">Try another category</h2>
+    <div class="flex flex-wrap justify-center gap-2">
+      {CATEGORY_PAGES.filter(c => c.slug !== meta.slug).map(c => (
+        <a href={`/${c.slug}`} class="rounded-full bg-cream border-3 border-ink px-4 py-2 text-sm font-bold shadow-chunky-sm hover:bg-white">
+          {c.emoji} {c.name}
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

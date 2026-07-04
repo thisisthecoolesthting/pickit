@@ -1,0 +1,68 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import HeroCaseBar from '@/components/HeroCaseBar.astro';
+import KidsCaseAd from '@/components/KidsCaseAd.astro';
+import { CATEGORY_PAGES } from '@/lib/categories';
+import { adCaseSets, featuredCases } from '@/lib/cases';
+import { pcfkHref } from '@/lib/site';
+
+const host = Astro.url.hostname;
+const featured = featuredCases(6);
+const sets = adCaseSets();
+const utm = (slot: string) => pcfkHref(slot, host, { game: 'hub' });
+
+const modes = [
+  { href: '/', emoji: '🎲', title: 'Random Would You Rather', desc: '20 questions from all categories. The main event!', badge: 'Popular' },
+  { href: '/speed', emoji: '⚡', title: 'Speed Pick', desc: '10 questions — quick decisions only.', badge: 'New' },
+  { href: '/daily', emoji: '📅', title: 'Daily Dilemma', desc: 'One question per day — come back tomorrow!', badge: 'New' },
+];
+---
+<BaseLayout
+  title="Free Kids Games — Would You Rather by Category | Pickit!"
+  description="Browse all free Would You Rather games for kids 9–12. Random games, speed mode, and 10 category games. No signup, COPPA-safe."
+>
+  <HeroCaseBar cases={featured} host={host} />
+
+  <header class="text-center mb-8">
+    <h1 class="font-display text-4xl md:text-5xl font-bold text-ink mb-2">All pickit games</h1>
+    <p class="text-lg text-ink/70 max-w-xl mx-auto">Free silly games for kids ages 9–12. Pick a mode or dive into a category.</p>
+  </header>
+
+  <section class="mb-8 max-w-lg mx-auto" aria-label="Sponsored phone case ad">
+    <KidsCaseAd cases={sets.hero} bg="lime" headline="Play free. Pick a case that fits you — code PICKIT15" ctaHref={utm('hub_top')} tilt="-1" />
+  </section>
+
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold text-ink mb-4">Game modes</h2>
+    <div class="grid gap-4 sm:grid-cols-2">
+      {modes.map(m => (
+        <a href={m.href} class="block rounded-2xl border-4 border-ink p-5 bg-cyan shadow-chunky hover:bg-cyan-deep/30 transition-colors">
+          <span class="text-4xl">{m.emoji}</span>
+          <h3 class="font-bold text-xl text-ink mt-2">{m.title}</h3>
+          <p class="text-sm text-ink/80 mt-1">{m.desc}</p>
+          <span class="inline-block mt-2 text-xs font-bold bg-sun border border-ink rounded-full px-2 py-0.5">{m.badge}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section>
+    <h2 class="text-2xl font-bold text-ink mb-4">Category games</h2>
+    <p class="text-ink/70 mb-4 text-sm">Each category has 10+ Would You Rather questions — play up to 20 per visit.</p>
+    <div class="grid gap-3 sm:grid-cols-2">
+      {CATEGORY_PAGES.map(c => (
+        <a href={`/${c.slug}`} class="flex items-center gap-3 rounded-xl border-4 border-ink p-3 bg-cream shadow-chunky-sm hover:bg-white">
+          <span class="text-3xl">{c.emoji}</span>
+          <div>
+            <div class="font-bold text-ink">{c.name}</div>
+            <div class="text-xs text-ink/60 line-clamp-2">{c.description.split('.')[0]}.</div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="mt-10 max-w-md mx-auto" aria-label="Sponsored phone case ad">
+    <KidsCaseAd cases={sets.footer} bg="sun" headline="Reward great picks — tough kid phone cases" ctaHref={utm('hub_footer')} tilt="1" />
+  </section>
+</BaseLayout>

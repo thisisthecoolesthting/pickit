@@ -1,0 +1,71 @@
+---
+const games = [
+  {
+    href: '/',
+    emoji: '🎲',
+    title: 'Random Would You Rather',
+    desc: '20 silly questions from all 10 categories. Different every visit!',
+    tag: 'Main game',
+  },
+  {
+    href: '/speed',
+    emoji: '⚡',
+    title: 'Speed Pick',
+    desc: '10 questions, quick picks. How fast can you decide?',
+    tag: 'New',
+  },
+  {
+    href: '/animals',
+    emoji: '🐶',
+    title: 'Animal Would You Rather',
+    desc: 'Pet ponies, tiny dragons, talking parrots — all animals!',
+    tag: 'Category',
+  },
+  {
+    href: '/food',
+    emoji: '🍕',
+    title: 'Food Would You Rather',
+    desc: 'Pizza mountains, taco rivers, ice cream that never melts.',
+    tag: 'Category',
+  },
+  {
+    href: '/daily',
+    emoji: '📅',
+    title: 'Daily Dilemma',
+    desc: 'One new Would You Rather question every day. Same for everyone!',
+    tag: 'New',
+  },
+  {
+    href: '/games',
+    emoji: '🎮',
+    title: 'All games & categories',
+    desc: 'Browse every category game and more ways to play.',
+    tag: 'Hub',
+  },
+];
+---
+<section id="more-games" class="mt-12">
+  <h2 class="text-3xl md:text-4xl font-bold text-ink text-center mb-2">More ways to play</h2>
+  <p class="text-center text-ink/70 mb-6 max-w-xl mx-auto">
+    Same silly questions, different vibes. Pick a game or jump into a category.
+  </p>
+  <div class="grid gap-4 sm:grid-cols-2">
+    {games.map((g, i) => (
+      <a
+        href={g.href}
+        class={`block rounded-2xl border-4 border-ink p-4 shadow-chunky-sm bg-cream hover:bg-white transition-colors ${i % 3 === 0 ? '-rotate-1' : i % 3 === 1 ? 'rotate-1' : ''}`}
+      >
+        <div class="flex items-start gap-3">
+          <span class="text-4xl sticker-emoji-sm" aria-hidden="true">{g.emoji}</span>
+          <div class="min-w-0">
+            <div class="flex items-center gap-2 mb-1">
+              <h3 class="font-bold text-lg text-ink">{g.title}</h3>
+              <span class="text-[10px] font-bold uppercase tracking-wide bg-sun border border-ink rounded-full px-2 py-0.5">{g.tag}</span>
+            </div>
+            <p class="text-sm text-ink/70">{g.desc}</p>
+          </div>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>

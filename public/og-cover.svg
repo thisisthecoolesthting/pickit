@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#FFFBE6"/>
+  <circle cx="80" cy="80" r="6" fill="#FF4D8F" opacity="0.35"/>
+  <circle cx="160" cy="120" r="6" fill="#4DD2FF" opacity="0.35"/>
+  <circle cx="240" cy="60" r="6" fill="#FF4D8F" opacity="0.35"/>
+  <text x="600" y="220" text-anchor="middle" font-family="Fredoka, Arial, sans-serif" font-size="120" font-weight="700" fill="#1A1A1A">pickit!</text>
+  <text x="600" y="310" text-anchor="middle" font-family="Fredoka, Arial, sans-serif" font-size="48" font-weight="600" fill="#1A1A1A" opacity="0.85">Would You Rather for kids 912</text>
+  <text x="600" y="380" text-anchor="middle" font-family="Fredoka, Arial, sans-serif" font-size="36" fill="#E0357A">Free · Silly · No signup</text>
+  <rect x="350" y="430" width="500" height="80" rx="40" fill="#B6FF6E" stroke="#1A1A1A" stroke-width="6"/>
+  <text x="600" y="485" text-anchor="middle" font-family="Fredoka, Arial, sans-serif" font-size="32" font-weight="700" fill="#1A1A1A">100 questions · 10 categories</text>
+  <text x="600" y="580" text-anchor="middle" font-family="Fredoka, Arial, sans-serif" font-size="28" fill="#1A1A1A" opacity="0.6">pickit.kids · picksite.online</text>
+</svg>

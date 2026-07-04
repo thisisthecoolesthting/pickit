@@ -1,33 +1,30 @@
 ---
-const cats = [
-  { id: 'animals',           emoji: '🐶', name: 'Animals',          desc: 'Pet ponies, tiny dragons, talking parrots, sneaky raccoons. Pick which fluffy or scaly friend you would rather have around.' },
-  { id: 'food',              emoji: '🍕', name: 'Food',             desc: 'Pizza forever, taco mountains, spaghetti rivers, pickle smoothies. The toughest meal-time decisions you will ever make.' },
-  { id: 'superpowers',       emoji: '⚡', name: 'Superpowers',      desc: 'Flying three feet off the ground, invisible Tuesdays, teleporting into closets. Funny twists on your favorite superhero abilities.' },
-  { id: 'adventure',         emoji: '🗺️', name: 'Adventure',        desc: 'Crystal caves, unnamed islands, jungle balloons, rainbow waterslides. Every question is a tiny vacation for your brain.' },
-  { id: 'magic',             emoji: '✨', name: 'Magic',            desc: 'Spells you can spell, potions you can taste, mirrors that tell jokes, brooms that do chores. Magic with rules that make you giggle.' },
-  { id: 'sports',            emoji: '⚽', name: 'Sports',           desc: 'Inventing a brand new sport, scoring only walk-off home runs, being best at every game in school. Choose your athletic superpower.' },
-  { id: 'sweets',            emoji: '🍫', name: 'Sweets & Treats',  desc: 'Chocolate that fixes bad days, donuts that refill themselves, ice cream that never melts. Pure sugar-coated decision-making.' },
-  { id: 'silly_bodies',      emoji: '💨', name: 'Silly Bodies',     desc: 'Sneezing glitter, burping bubbles, hair that changes color with your mood, glow-in-the-dark fingertips. Gross-but-funny only, never mean.' },
-  { id: 'school_friends',    emoji: '📚', name: 'School & Friends', desc: 'Homework that does itself, lunch boxes that pick your favorite meal, teachers who tell wild stories. School, but better.' },
-  { id: 'weather_outdoors',  emoji: '☀️', name: 'Weather & Outdoors', desc: 'Sprinkler summers, snow-day sledding, rainbow rain, snow angels. For every kid who loves being outside.' },
-];
+import { CATEGORY_PAGES } from '@/lib/categories';
+
+const cats = CATEGORY_PAGES.map(c => ({
+  id: c.slug,
+  emoji: c.emoji,
+  name: c.name,
+  desc: c.description.split('.')[0] + '.',
+  href: `/${c.slug}`,
+}));
 ---
 <section id="categories" class="mt-12">
   <h2 class="text-3xl md:text-4xl font-bold text-ink text-center mb-2">10 silly categories</h2>
   <p class="text-center text-ink/70 mb-6 max-w-xl mx-auto">
-    Every game pulls random questions from across all ten. You never know which mix you'll get.
+    Play a random mix on the <a href="/" class="font-bold underline">home game</a>, or jump straight into a category.
   </p>
   <div class="grid gap-4 md:grid-cols-2">
     {cats.map((c, i) => (
-      <div class={`rounded-2xl border-4 border-ink p-4 shadow-chunky-sm bg-cream ${i % 4 === 0 ? '-rotate-1' : i % 4 === 1 ? 'rotate-1' : i % 4 === 2 ? '-rotate-2' : 'rotate-2'}`}>
+      <a href={c.href} class={`block rounded-2xl border-4 border-ink p-4 shadow-chunky-sm bg-cream hover:bg-white transition-colors ${i % 4 === 0 ? '-rotate-1' : i % 4 === 1 ? 'rotate-1' : i % 4 === 2 ? '-rotate-2' : 'rotate-2'}`}>
         <div class="flex items-start gap-3">
           <div class="text-4xl md:text-5xl flex-shrink-0 sticker-emoji-sm" aria-hidden="true">{c.emoji}</div>
           <div class="min-w-0">
-            <h3 class="font-bold text-lg md:text-xl text-ink mb-1">{c.name}</h3>
+            <h3 class="font-bold text-lg md:text-xl text-ink mb-1">{c.name} →</h3>
             <p class="text-sm text-ink/70 leading-snug">{c.desc}</p>
           </div>
         </div>
-      </div>
+      </a>
     ))}
   </div>
 </section>

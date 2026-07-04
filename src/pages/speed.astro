@@ -1,0 +1,62 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import GameRunner from '@/components/GameRunner.astro';
+import HeroCaseBar from '@/components/HeroCaseBar.astro';
+import KidsCaseAd from '@/components/KidsCaseAd.astro';
+import { getEntry } from 'astro:content';
+import { adCaseSets, featuredCases } from '@/lib/cases';
+import { pcfkHref } from '@/lib/site';
+
+const host = Astro.url.hostname;
+const data = await getEntry('games', 'questions');
+const allQuestions = data?.data.categories.flatMap(c => c.questions) ?? [];
+const sets = adCaseSets();
+const featured = featuredCases(6);
+const utm = (slot: string) => pcfkHref(slot, host, { game: 'speed' });
+---
+<BaseLayout
+  title="Speed Pick — Fast Would You Rather for Kids | Pickit!"
+  description="10 quick Would You Rather questions for kids 9–12. Pick fast, score silly points, then shop tough kid phone cases with code PICKIT15."
+>
+  <HeroCaseBar cases={featured} host={host} />
+
+  <header class="text-center mb-6">
+    <div class="text-6xl mb-2 sticker-emoji animate-bounce-soft inline-block" aria-hidden="true">⚡</div>
+    <h1 class="font-display text-4xl md:text-5xl font-bold text-ink mb-2">Speed Pick</h1>
+    <p class="text-lg text-ink/70 max-w-xl mx-auto">
+      10 questions. Quick picks. No overthinking — just pick!
+    </p>
+    <p class="mt-3 text-sm">
+      <a href="/" class="font-bold underline decoration-pink decoration-4 underline-offset-4">← Full 20-question game</a>
+    </p>
+  </header>
+
+  <section class="mb-8 max-w-md mx-auto" aria-label="Sponsored phone case ad">
+    <KidsCaseAd
+      cases={sets.preGame}
+      bg="cyan"
+      headline="Fast picks deserve fast shipping — kid cases with PICKIT15"
+      ctaHref={utm('speed_above')}
+      tilt="1"
+    />
+  </section>
+
+  <GameRunner
+    questions={allQuestions}
+    perGame={10}
+    featuredCases={featured}
+    shopHref={utm('speed_post_game')}
+    gameId="speed"
+    caseBreakEvery={0}
+  />
+
+  <section class="mt-10 max-w-md mx-auto" aria-label="Sponsored phone case ad">
+    <KidsCaseAd
+      cases={sets.between}
+      bg="pink"
+      headline="Lightning reflexes? Match them with a tough case."
+      ctaHref={utm('speed_footer')}
+      tilt="-1"
+    />
+  </section>
+</BaseLayout>

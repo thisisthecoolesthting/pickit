@@ -1,30 +1,60 @@
 ---
-// GameRunner: vanilla JS island.
-// Pulls the full 100-question pool from the page's data attribute,
-// shuffles, takes 20, drives the A/B flow.
+interface CaseItem {
+  id: string;
+  name: string;
+  lean: string;
+  imgUrl: string;
+}
 interface Props {
   questions: { id: string; a: string; a_emoji: string; b: string; b_emoji: string }[];
   perGame?: number;
+  featuredCases?: CaseItem[];
+  shopHref?: string;
+  gameId?: string;
+  caseBreakEvery?: number;
 }
-const { questions, perGame = 20 } = Astro.props;
+const {
+  questions,
+  perGame = 20,
+  featuredCases = [],
+  shopHref = 'https://phonecasesforkids.com?utm_source=pickit&utm_medium=ad&utm_campaign=post_game',
+  gameId = 'main',
+  caseBreakEvery = 7,
+} = Astro.props;
 ---
 <div
   id="pickit-game"
   data-questions={JSON.stringify(questions)}
   data-per-game={perGame}
-  class="mt-6"
+  data-cases={JSON.stringify(featuredCases)}
+  data-shop-href={shopHref}
+  data-game-id={gameId}
+  data-case-break={caseBreakEvery}
+  class="mt-2"
 >
   <div id="pickit-loading" class="text-center text-2xl text-ink/60">Loading the silliness…</div>
 </div>
 
 <script>
   type Q = { id: string; a: string; a_emoji: string; b: string; b_emoji: string };
+  type CaseItem = { id: string; name: string; lean: string; imgUrl: string };
 
   const root = document.getElementById('pickit-game')!;
   const all: Q[] = JSON.parse(root.dataset.questions || '[]');
   const perGame = parseInt(root.dataset.perGame || '20', 10);
+  const featuredCases: CaseItem[] = JSON.parse(root.dataset.cases || '[]');
+    const shopHref = root.dataset.shopHref || 'https://phonecasesforkids.com';
+    const caseBreakEvery = parseInt(root.dataset.caseBreak || '7', 10);
+    const utmSource = window.location.hostname.replace(/^www\./, '') === 'picksite.online' ? 'picksite' : 'pickit';
+    function withUtm(href: string) {
+      try {
+        const u = new URL(href);
+        u.searchParams.set('utm_source', utmSource);
+        return u.toString();
+      } catch { return href; }
+    }
+    const shopHrefLive = withUtm(shopHref);
 
-  // Fisher-Yates shuffle
   function shuffle<T>(arr: T[]): T[] {
     const a = [...arr];
     for (let i = a.length - 1; i > 0; i--) {
@@ -40,8 +70,8 @@ const { questions, perGame = 20 } = Astro.props;
   let score = 0;
   let streak = 0;
   let lastSide: 'a' | 'b' | null = null;
+  let caseBreakIdx = 0;
 
-  // Reaction phrases — mix of good/bad/silly, none actually meaningful
   const REACTIONS = [
     { e: '🔥', t: 'Iconic!' },        { e: '💯', t: 'No notes.' },      { e: '👀', t: 'Bold move.' },
     { e: '🤯', t: 'Wild choice!' },   { e: '🌟', t: 'Classic taste.' }, { e: '🎉', t: 'Perfection!' },
@@ -57,16 +87,13 @@ const { questions, perGame = 20 } = Astro.props;
     { e: '🤔', t: 'Hmm... cool.' },   { e: '😤', t: 'Big mood.' },      { e: '🌟', t: 'A+ vibe.' },
     { e: '🪩', t: 'Disco pick!' },    { e: '🎸', t: 'Rockstar move.' }, { e: '🍦', t: 'Sweet sweet.' },
   ];
-  const POINTS = [5, 10, 10, 15, 15, 20, 25, 25, 30, 40, 50, 75]; // weighted toward small
+  const POINTS = [5, 10, 10, 15, 15, 20, 25, 25, 30, 40, 50, 75];
   const MEGA = 999;
-  const MEGA_CHANCE = 0.04;       // 4% chance of mega bonus
-  const STREAK_BONUS_MIN = 3;     // 3+ in a row triggers streak bonus
+  const MEGA_CHANCE = 0.04;
+  const STREAK_BONUS_MIN = 3;
   const STREAK_PHRASES: Record<number,string> = {
-    3: '🔥 STREAK x3!',
-    4: '🔥🔥 STREAK x4!',
-    5: '🔥🔥🔥 ON FIRE!',
-    6: '👑 RUTHLESS x6!',
-    7: '💎 UNSTOPPABLE!',
+    3: '🔥 STREAK x3!', 4: '🔥🔥 STREAK x4!', 5: '🔥🔥🔥 ON FIRE!',
+    6: '👑 RUTHLESS x6!', 7: '💎 UNSTOPPABLE!',
   };
 
   function renderQuestion() {
@@ -87,8 +114,6 @@ const { questions, perGame = 20 } = Astro.props;
           <div class="mb-2 md:mb-3 text-7xl md:text-8xl leading-none select-none sticker-emoji" aria-hidden="true">${q.a_emoji}</div>
           <div class="text-base md:text-xl font-bold text-ink leading-tight break-words hyphens-auto">${escapeHtml(q.a)}</div>
         </button>
-
-        <!-- VS starburst badge, centered between the tiles (works for both vertical + horizontal layouts) -->
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none">
           <div class="relative animate-wobble">
             <svg class="w-16 h-16 md:w-24 md:h-24 drop-shadow-[3px_3px_0_rgba(26,26,26,0.85)]" viewBox="0 0 100 100" aria-hidden="true">
@@ -98,7 +123,6 @@ const { questions, perGame = 20 } = Astro.props;
             <div class="absolute inset-0 flex items-center justify-center text-xl md:text-2xl font-extrabold text-ink select-none">VS</div>
           </div>
         </div>
-
         <button data-side="b" class="tile flex-1 min-w-0 rounded-2xl md:rounded-3xl border-4 border-ink bg-gradient-to-br from-cyan to-cyan-deep px-4 py-6 md:px-6 md:py-8 text-center shadow-chunky rotate-1 transition-transform active:translate-x-1 active:translate-y-1">
           <div class="mb-2 md:mb-3 text-7xl md:text-8xl leading-none select-none sticker-emoji" aria-hidden="true">${q.b_emoji}</div>
           <div class="text-base md:text-xl font-bold text-ink leading-tight break-words hyphens-auto">${escapeHtml(q.b)}</div>
@@ -110,18 +134,46 @@ const { questions, perGame = 20 } = Astro.props;
     });
   }
 
+  function renderCaseBreak(onContinue: () => void) {
+    const c = featuredCases[caseBreakIdx % Math.max(featuredCases.length, 1)];
+    caseBreakIdx++;
+    const imgs = featuredCases.slice(0, 4).map(x =>
+      `<img src="${x.imgUrl}" alt="${escapeHtml(x.name)}" class="h-16 md:h-20 w-auto drop-shadow-[2px_2px_0_rgba(26,26,26,0.85)]" />`
+    ).join('');
+
+    root.innerHTML = `
+      <div class="text-center py-6 animate-pop-in rounded-3xl border-4 border-ink bg-sun p-5 shadow-chunky">
+        <div class="inline-block rounded-full bg-pink border-2 border-ink px-3 py-1 text-xs font-bold mb-3">AD · Case break!</div>
+        <h2 class="text-2xl md:text-3xl font-bold text-ink mb-2">📱 Pick a case that matches your vibe</h2>
+        <p class="text-ink/80 mb-4 text-sm md:text-base">Tough kid cases from our friends at Phone Cases For Kids. Code <strong>PICKIT15</strong> = 15% off.</p>
+        <div class="flex justify-center items-end gap-2 mb-4 flex-wrap">${imgs}</div>
+        ${c ? `<p class="text-sm font-bold text-ink/70 mb-4">Spotlight: ${escapeHtml(c.name)}</p>` : ''}
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+          <a href="${shopHrefLive}" rel="sponsored nofollow noopener" target="_blank"
+             class="rounded-full bg-pink hover:bg-pink-deep border-4 border-ink px-6 py-3 text-lg font-bold text-ink shadow-chunky">
+            Find my case →
+          </a>
+          <button id="pickit-skip-break" class="rounded-full bg-cream hover:bg-white border-4 border-ink px-6 py-3 text-lg font-bold text-ink shadow-chunky-sm">
+            Keep playing →
+          </button>
+        </div>
+      </div>
+    `;
+    document.getElementById('pickit-skip-break')!.addEventListener('click', onContinue);
+  }
+
   function choose(side: 'a' | 'b') {
     picks.push(side);
-    // streak: same letter in a row
     if (side === lastSide) streak++; else streak = 1;
     lastSide = side;
-
     showReaction(side);
 
     setTimeout(() => {
       idx++;
       if (idx >= game.length) renderSummary();
-      else renderQuestion();
+      else if (caseBreakEvery > 0 && idx > 0 && idx % caseBreakEvery === 0) {
+        renderCaseBreak(() => renderQuestion());
+      } else renderQuestion();
     }, 700);
   }
 
@@ -130,10 +182,8 @@ const { questions, perGame = 20 } = Astro.props;
     const mega = Math.random() < MEGA_CHANCE;
     const bonus = mega ? MEGA : POINTS[Math.floor(Math.random() * POINTS.length)]!;
     score += bonus;
-
     const streakLine = streak >= STREAK_BONUS_MIN
-      ? (STREAK_PHRASES[Math.min(streak, 7)] || `🔥 STREAK x${streak}!`)
-      : '';
+      ? (STREAK_PHRASES[Math.min(streak, 7)] || `🔥 STREAK x${streak}!`) : '';
 
     const el = document.createElement('div');
     el.className = 'pickit-reaction';
@@ -146,12 +196,11 @@ const { questions, perGame = 20 } = Astro.props;
     document.body.appendChild(el);
     setTimeout(() => el.remove(), 950);
 
-    // Bump the score chip
     const chip = document.getElementById('pickit-score');
     if (chip) {
       chip.textContent = `🌟 ${score} silly pts`;
       chip.classList.remove('bump');
-      void chip.offsetWidth; // restart animation
+      void chip.offsetWidth;
       chip.classList.add('bump');
     }
   }
@@ -159,7 +208,6 @@ const { questions, perGame = 20 } = Astro.props;
   function renderSummary() {
     const aCount = picks.filter(p => p === 'a').length;
     const bCount = picks.filter(p => p === 'b').length;
-    // Made-up rank — purely for funsies. Maps score to a tier title.
     let rank: { emoji: string; title: string; tagline: string; };
     if (score >= 1500)      rank = { emoji: '👑', title: 'PICKIT LEGEND', tagline: 'Top 0.1% of kid choosers.' };
     else if (score >= 1000) rank = { emoji: '🦄', title: 'UNICORN TIER',  tagline: 'Top 3% — extremely rare.' };
@@ -168,12 +216,15 @@ const { questions, perGame = 20 } = Astro.props;
     else if (score >= 200)  rank = { emoji: '🎯', title: 'SOLID PICKER',   tagline: 'Top 50%. Locked in.' };
     else                    rank = { emoji: '🌱', title: 'SPROUT PICKER', tagline: 'Warmin’ up!' };
 
+    const caseGrid = featuredCases.slice(0, 6).map(c =>
+      `<img src="${c.imgUrl}" alt="${escapeHtml(c.name)}" title="${escapeHtml(c.name)}"
+            class="h-20 md:h-24 w-auto drop-shadow-[3px_3px_0_rgba(26,26,26,0.85)] hover:scale-105 transition-transform" />`
+    ).join('');
+
     root.innerHTML = `
-      <div class="text-center py-8 animate-pop-in">
+      <div class="text-center py-6 animate-pop-in">
         <div class="text-7xl md:text-8xl mb-3 sticker-emoji animate-wobble inline-block">${rank.emoji}</div>
-        <div class="inline-block rounded-full bg-sun border-4 border-ink px-5 py-2 text-2xl md:text-3xl font-extrabold text-ink shadow-chunky -rotate-2 mb-3">
-          ${rank.title}
-        </div>
+        <div class="inline-block rounded-full bg-sun border-4 border-ink px-5 py-2 text-2xl md:text-3xl font-extrabold text-ink shadow-chunky -rotate-2 mb-3">${rank.title}</div>
         <p class="text-base md:text-lg text-ink/80 mb-2">${rank.tagline}</p>
         <div class="my-4">
           <div class="inline-block rounded-2xl bg-lime border-4 border-ink px-6 py-3 text-3xl md:text-4xl font-extrabold text-ink shadow-chunky">
@@ -184,6 +235,18 @@ const { questions, perGame = 20 } = Astro.props;
           You picked <span class="font-bold text-pink-deep">A: ${aCount}</span> and
           <span class="font-bold text-cyan-deep">B: ${bCount}</span> out of ${game.length}.
         </p>
+
+        <div class="rounded-3xl border-4 border-ink bg-pink p-5 md:p-6 shadow-chunky mb-6 text-left max-w-lg mx-auto">
+          <div class="inline-block rounded-full bg-sun border-2 border-ink px-3 py-1 text-xs font-bold mb-3">AD</div>
+          <h3 class="text-xl md:text-2xl font-bold text-ink mb-2">You picked ${game.length} times — now pick YOUR case! 📱</h3>
+          <p class="text-sm text-ink/85 mb-4">Match your vibe with tough kid phone cases. Unicorn, dinosaur, galaxy & more. Use code <strong>PICKIT15</strong> for 15% off.</p>
+          <div class="flex flex-wrap justify-center gap-2 mb-4">${caseGrid}</div>
+          <a href="${shopHrefLive}" rel="sponsored nofollow noopener" target="_blank"
+             class="block w-full rounded-full bg-cream hover:bg-white border-4 border-ink px-6 py-4 text-xl font-bold text-ink shadow-chunky text-center transition-transform active:translate-x-1 active:translate-y-1">
+            Find my case at Phone Cases For Kids →
+          </a>
+        </div>
+
         <button id="pickit-replay" class="rounded-full bg-cyan hover:bg-cyan-deep border-4 border-ink px-8 py-4 text-2xl font-bold text-ink shadow-chunky transition-transform active:translate-x-1 active:translate-y-1 active:shadow-chunky-sm">
           🔁 Play another!
         </button>
@@ -195,8 +258,7 @@ const { questions, perGame = 20 } = Astro.props;
 
   function burstConfetti() {
     const pieces = ['🎉','✨','⭐','🌈','🎊','💫','🎈','🍭'];
-    const count = 36;
-    for (let i = 0; i < count; i++) {
+    for (let i = 0; i < 36; i++) {
       const el = document.createElement('div');
       el.className = 'confetti';
       el.textContent = pieces[Math.floor(Math.random() * pieces.length)]!;

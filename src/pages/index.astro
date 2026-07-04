@@ -1,41 +1,40 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import GameRunner from '@/components/GameRunner.astro';
+import HeroCaseBar from '@/components/HeroCaseBar.astro';
 import KidsCaseAd from '@/components/KidsCaseAd.astro';
 import HowToPlay from '@/components/HowToPlay.astro';
 import CategoriesGrid from '@/components/CategoriesGrid.astro';
 import FAQ from '@/components/FAQ.astro';
 import AboutKids from '@/components/AboutKids.astro';
+import GamesHub from '@/components/GamesHub.astro';
 import { getEntry } from 'astro:content';
-import casePool from '../data/case-pool.json';
+import { adCaseSets, featuredCases } from '@/lib/cases';
+import { pcfkHref } from '@/lib/site';
 
+const host = Astro.url.hostname;
 const data = await getEntry('games', 'questions');
 const allQuestions = data?.data.categories.flatMap(c => c.questions) ?? [];
+const sets = adCaseSets();
+const featured = featuredCases(6);
 
-// Split pool by lean (10 girls + 10 boys) and distribute across 4 ads (5 cases each, balanced).
-const girls = casePool.filter(c => c.lean === 'girl');
-const boys = casePool.filter(c => c.lean === 'boy');
-// Each ad gets 2-3 girls + 2-3 boys = 5 total, no overlap across ads.
-const adCasesTop1   = [girls[0], girls[1], boys[0], boys[1], boys[2]];
-const adCasesTop2   = [girls[2], girls[3], girls[4], boys[3], boys[4]];
-const adCasesBetween= [girls[5], girls[6], boys[5], boys[6], boys[7]];
-const adCasesFooter = [girls[7], girls[8], girls[9], boys[8], boys[9]];
-
-const utm = (slot: string) =>
-  `https://phonecasesforkids.com?utm_source=pickit&utm_medium=ad&utm_campaign=${slot}`;
-const adsTop = [
-  { cases: adCasesTop1, bg: 'lime' as const, headline: 'Tough kid cases. Built to bounce.',  ctaHref: utm('above_fold'), tilt: '-1' as const },
-  { cases: adCasesTop2, bg: 'cyan' as const, headline: 'Rainbow rad cases for every phone.', ctaHref: utm('above_fold'), tilt: '1'  as const },
+const utm = (slot: string) => pcfkHref(slot, host, { game: 'main' });
+const adsPreGame = [
+  { cases: sets.hero, bg: 'lime' as const, headline: 'Cases as unique as your choices — 15% off with PICKIT15', ctaHref: utm('pre_game_1'), tilt: '-1' as const, ctaText: 'Find my case →' },
+  { cases: sets.preGame, bg: 'cyan' as const, headline: 'Which case matches YOUR vibe? Tough enough for recess.', ctaHref: utm('pre_game_2'), tilt: '1' as const, ctaText: 'Shop kids cases →' },
 ];
-const adBetween = { cases: adCasesBetween, bg: 'pink' as const, headline: 'Glitter cases that survive recess.', ctaHref: utm('between'), tilt: '2'  as const };
-const adFooter  = { cases: adCasesFooter,  bg: 'sun'  as const, headline: 'Galaxy cases. Out of this world.',   ctaHref: utm('footer'),  tilt: '-1' as const };
+const adBetween = { cases: sets.between, bg: 'pink' as const, headline: 'Pickit players get tough kid cases — code PICKIT15', ctaHref: utm('between'), tilt: '2' as const };
+const adFooter  = { cases: sets.footer, bg: 'sun' as const, headline: 'Unicorn, dinosaur & hero cases — match your picks!', ctaHref: utm('footer'), tilt: '-1' as const };
+const postGameHref = utm('post_game');
 ---
 <BaseLayout
   title="pickit.kids — silly Would You Rather games for kids ages 9–12 | free, no signup"
   description="Free Would You Rather questions for kids 9–12. 100 hand-picked silly age-appropriate questions across 10 categories. Random new game every visit. No accounts, no tracking, no personal info collected."
 >
+  <HeroCaseBar cases={featured} host={host} />
+
   <!-- Hero -->
-  <header class="relative text-center mb-8">
+  <header class="relative text-center mb-6">
     <div class="absolute -top-2 left-1/4 text-3xl animate-sparkle" aria-hidden="true">✨</div>
     <div class="absolute -top-4 right-1/4 text-4xl animate-sparkle" style="animation-delay: -0.8s;" aria-hidden="true">⭐</div>
     <div class="text-6xl md:text-7xl mb-2 sticker-emoji animate-bounce-soft inline-block" aria-hidden="true">🎮</div>
@@ -46,15 +45,27 @@ const adFooter  = { cases: adCasesFooter,  bg: 'sun'  as const, headline: 'Galax
     <p class="text-base md:text-lg text-ink/60 mt-2 max-w-xl mx-auto">
       A brand new silly game every time you visit. 20 random questions. No signup, no tracking, just <em>pick.</em>
     </p>
+    <p class="mt-3">
+      <a href="/games" class="inline-block text-sm font-bold text-ink underline decoration-pink decoration-4 underline-offset-4 hover:text-pink-deep">
+        More games → Speed Pick, category games & more
+      </a>
+    </p>
   </header>
 
-  <!-- Game -->
-  <GameRunner questions={allQuestions} perGame={20} />
-
-  <!-- Above-fold-ish ads -->
-  <section class="mt-10 grid gap-5 md:grid-cols-2" aria-label="Sponsored phone case ads">
-    {adsTop.map(ad => <KidsCaseAd {...ad} />)}
+  <!-- Phone cases BEFORE the game -->
+  <section class="mb-8 grid gap-5 md:grid-cols-2" aria-label="Sponsored phone case ads">
+    {adsPreGame.map(ad => <KidsCaseAd {...ad} />)}
   </section>
+
+  <!-- Game -->
+  <GameRunner
+    questions={allQuestions}
+    perGame={20}
+    featuredCases={featured}
+    shopHref={postGameHref}
+    gameId="main"
+    caseBreakEvery={7}
+  />
 
   <!-- SEO intro: what is this, why -->
   <section id="about-the-game" class="mt-12 max-w-2xl mx-auto">
@@ -75,35 +86,40 @@ const adFooter  = { cases: adCasesFooter,  bg: 'sun'  as const, headline: 'Galax
     </div>
   </section>
 
-  <!-- Between-question ad (one-off) -->
   <section class="mt-10 max-w-md mx-auto" aria-label="Sponsored phone case ad">
     <KidsCaseAd {...adBetween} />
   </section>
 
-  <!-- Categories -->
+  <GamesHub />
+
   <CategoriesGrid />
 
-  <!-- How to play -->
   <HowToPlay />
 
-  <!-- FAQ (also drops FAQPage schema) -->
   <FAQ />
 
-  <!-- For parents -->
   <AboutKids />
 
-  <!-- Footer ad -->
   <section class="mt-10 max-w-md mx-auto" aria-label="Sponsored phone case ad">
     <KidsCaseAd {...adFooter} />
   </section>
 
-  <!-- Final pitch -->
   <section class="mt-12 text-center max-w-xl mx-auto">
     <div class="text-5xl mb-3 sticker-emoji animate-wobble inline-block" aria-hidden="true">🎲</div>
     <h2 class="text-2xl md:text-3xl font-bold text-ink mb-2">Ready for another random game?</h2>
     <p class="text-ink/70 mb-4">Refresh the page and you'll get a brand new shuffled set of 20 questions from a totally different mix of categories.</p>
-    <a href="/" class="inline-block rounded-full bg-lime hover:bg-lime-deep border-4 border-ink px-8 py-4 text-xl font-bold text-ink shadow-chunky transition-transform active:translate-x-1 active:translate-y-1">
-      🔁 New random game →
-    </a>
+    <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
+      <a href="/" class="inline-block rounded-full bg-lime hover:bg-lime-deep border-4 border-ink px-8 py-4 text-xl font-bold text-ink shadow-chunky transition-transform active:translate-x-1 active:translate-y-1">
+        🔁 New random game →
+      </a>
+      <a
+        href={postGameHref}
+        rel="sponsored nofollow noopener"
+        target="_blank"
+        class="inline-block rounded-full bg-pink hover:bg-pink-deep border-4 border-ink px-8 py-4 text-xl font-bold text-ink shadow-chunky transition-transform active:translate-x-1 active:translate-y-1"
+      >
+        📱 Shop cases (PICKIT15) →
+      </a>
+    </div>
   </section>
 </BaseLayout>

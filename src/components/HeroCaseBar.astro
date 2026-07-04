@@ -1,0 +1,51 @@
+---
+import type { CaseItem } from '@/lib/cases';
+import { pcfkHref } from '@/lib/site';
+
+interface Props {
+  cases: CaseItem[];
+  host: string;
+}
+const { cases, host } = Astro.props;
+const href = pcfkHref('sticky_bar', host);
+---
+<div id="pickit-case-bar" class="sticky top-0 z-30 -mx-4 px-4 py-2 mb-4 md:-mx-6 md:px-6 bg-sun/95 backdrop-blur-sm border-b-4 border-ink shadow-chunky-sm">
+  <a
+    href={href}
+    rel="sponsored nofollow noopener"
+    target="_blank"
+    class="flex items-center gap-2 md:gap-3 group"
+  >
+    <span class="flex-shrink-0 rounded-full bg-pink border-2 border-ink px-2 py-0.5 text-[10px] md:text-xs font-bold text-ink">AD</span>
+    <div class="flex items-end gap-1 flex-1 min-w-0 overflow-hidden">
+      {cases.slice(0, 4).map(c => (
+        <img
+          src={c.imgUrl}
+          alt=""
+          loading="eager"
+          decoding="async"
+          class="h-10 md:h-12 w-auto flex-shrink-0 drop-shadow-[2px_2px_0_rgba(26,26,26,0.7)] group-hover:scale-105 transition-transform"
+        />
+      ))}
+    </div>
+    <div class="flex-shrink-0 text-right leading-tight">
+      <div class="text-xs md:text-sm font-bold text-ink">Pick your case 📱</div>
+      <div class="text-[10px] md:text-xs font-bold text-ink/80">Code PICKIT15 → 15% off</div>
+    </div>
+  </a>
+</div>
+
+<script>
+  const bar = document.getElementById('pickit-case-bar');
+  if (bar) {
+    let compact = false;
+    window.addEventListener('scroll', () => {
+      const shouldCompact = window.scrollY > 120;
+      if (shouldCompact !== compact) {
+        compact = shouldCompact;
+        bar.classList.toggle('py-1', compact);
+        bar.classList.toggle('py-2', !compact);
+      }
+    }, { passive: true });
+  }
+</script>

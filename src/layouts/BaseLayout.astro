@@ -1,18 +1,20 @@
 ---
+import { canonicalUrl, PRIMARY_SITE } from '@/lib/site';
+
 interface Props {
   title?: string;
   description?: string;
+  ogImage?: string;
 }
 const {
   title = 'pickit.kids — silly Would You Rather games for kids',
   description = 'Free Would You Rather games for kids ages 9–12. Pick your side. Faster. No accounts, no signups, just silly.',
+  ogImage = '/og-cover.svg',
 } = Astro.props;
 
-// GA4 ID placeholder — replace with real ID after creating the GA4 property
-// IMPORTANT: After creating the property, you MUST flip the
-// "Treat as Made for Kids" checkbox in GA4 → Admin → Property settings.
-// That disables personalized ads, IP collection, demographic inference, and
-// User-ID — required for COPPA compliance.
+const canonical = canonicalUrl(Astro.url.pathname);
+const ogImageAbs = new URL(ogImage, PRIMARY_SITE).href;
+
 const GA4_ID = import.meta.env.PUBLIC_GA4_ID || '';
 ---
 <!DOCTYPE html>
@@ -24,13 +26,20 @@ const GA4_ID = import.meta.env.PUBLIC_GA4_ID || '';
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+  <link rel="canonical" href={canonical} />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonical} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:site_name" content="pickit.kids" />
+  <meta property="og:image" content={ogImageAbs} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImageAbs} />
+  <meta name="keywords" content="would you rather kids, free games for kids 9-12, silly questions, party game, pickit kids, phone cases for kids" />
 
   <!-- Fredoka -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -239,8 +248,21 @@ const GA4_ID = import.meta.env.PUBLIC_GA4_ID || '';
     <slot />
   </main>
 
+  <script>
+    const host = window.location.hostname.replace(/^www\./, '');
+    const source = host === 'picksite.online' ? 'picksite' : 'pickit';
+    document.querySelectorAll('a[href*="phonecasesforkids.com"]').forEach(a => {
+      try {
+        const u = new URL(a.href);
+        u.searchParams.set('utm_source', source);
+        a.href = u.toString();
+      } catch { /* ignore */ }
+    });
+  </script>
+
   <footer class="mx-auto max-w-3xl px-4 pb-10 text-center text-xs text-ink/60">
-    <p class="mb-2">pickit.kids — silly games for ages 9–12.</p>
+    <p class="mb-2">pickit.kids — silly games for ages 9–12. Also at <a class="underline" href="https://picksite.online">picksite.online</a>.</p>
+    <p class="mb-2"><a href="/games" class="underline font-bold">All games</a> · Phone cases by <a href="https://phonecasesforkids.com" rel="sponsored" class="underline">Phone Cases For Kids</a></p>
     <p class="mb-2">No accounts. No tracking. No personal info collected.</p>
     <p>
       Some links on this site are affiliate links. If you buy something through them we may earn a small commission at no extra cost to you.
