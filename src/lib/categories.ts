@@ -9,6 +9,28 @@ export const CATEGORY_PAGES = [
     h1: 'Animal Would You Rather',
     description:
       '20+ silly animal Would You Rather questions for kids 9–12. Pet ponies, tiny dragons, talking parrots — free online game!',
+    faqs: [
+      {
+        question: 'What is "Animal Would You Rather" for kids?',
+        answer:
+          "It's a free pick-one-or-the-other game with silly animal choices, like a pet pony in your bedroom vs. a tiny dragon in your backpack, or a friendly fox sidekick vs. a friendly owl sidekick. Kids tap their pick and get a fun reaction — no reading essays, no wrong answers.",
+      },
+      {
+        question: 'Is Pickit safe for kids to play?',
+        answer:
+          'Yes. Pickit has no accounts, no sign-up, and no personal information collected — you just open the page and play. Questions are written to be age-appropriate for kids 9–12.',
+      },
+      {
+        question: 'How many animal questions are in the game?',
+        answer:
+          'The Animal category has its own set of would-you-rather questions covering pets, sidekicks, and swimming buddies — ponies, dragons, foxes, owls, turtles, kangaroos, parrots, hamsters, penguins, flamingos, elephants, dolphins, and otters. Each round shuffles the questions so replays feel fresh.',
+      },
+      {
+        question: 'Are there other Would You Rather categories besides animals?',
+        answer:
+          'Yes — Pickit also has Food, Superpowers, Adventure, Magic, Sports, Sweets & Treats, Silly Bodies, School & Friends, and Weather & Outdoors categories, plus a Speed round and a Daily challenge. Check out the full game hub to play them all.',
+      },
+    ],
   },
   {
     slug: 'food',

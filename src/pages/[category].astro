@@ -23,8 +23,25 @@ const questions = cat?.questions ?? [];
 const sets = adCaseSets();
 const featured = featuredCases(6);
 const utm = (slot: string) => pcfkHref(slot, host, { game: 'category', category: meta.slug });
+
+const faqs = (meta as any).faqs ?? [];
+const faqSchema = faqs.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(f => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: f.answer,
+    },
+  })),
+} : null;
 ---
 <BaseLayout title={meta.title} description={meta.description}>
+  {faqSchema && (
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  )}
   <HeroCaseBar cases={featured} host={host} />
 
   <header class="text-center mb-6">
@@ -69,6 +86,25 @@ const utm = (slot: string) => pcfkHref(slot, host, { game: 'category', category:
       tilt="1"
     />
   </section>
+
+  {faqs.length > 0 && (
+    <section class="mt-10 max-w-xl mx-auto" aria-label="Frequently asked questions">
+      <h2 class="text-2xl font-bold text-ink text-center mb-4">Frequently Asked Questions</h2>
+      <div class="space-y-4">
+        {faqs.map(f => (
+          <div class="rounded-2xl bg-white/70 border-3 border-ink px-4 py-3 shadow-chunky-sm">
+            <h3 class="font-bold text-ink mb-1">{f.question}</h3>
+            <p class="text-sm text-ink/80">{f.answer}</p>
+          </div>
+        ))}
+      </div>
+      <p class="mt-4 text-center text-sm text-ink/70">
+        Want more? Try <a href="/food" class="font-bold underline decoration-pink decoration-4 underline-offset-4">Food Would You Rather</a>,
+        <a href="/superpowers" class="font-bold underline decoration-cyan decoration-4 underline-offset-4"> Superpower Would You Rather</a>,
+        or head to the <a href="/games" class="font-bold underline decoration-lime decoration-4 underline-offset-4">full game hub</a>.
+      </p>
+    </section>
+  )}
 
   <section class="mt-10">
     <h2 class="text-2xl font-bold text-ink text-center mb-4">Try another category</h2>
